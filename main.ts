@@ -1,5 +1,3 @@
-//Global variables
-
 /**
  * Calibration blocks
  */
@@ -153,6 +151,7 @@ namespace grid {
         }
     }
 }
+
 /**
  * Digger Blocks
  */
@@ -166,10 +165,8 @@ namespace digger {
     //% weight=96
     //% block="EXPLODE"
     //% group="funfun"    
-    let strip: neopixel.Strip = null //make strip
-
     export function explode() {
-        strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
+        let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
         let timer = 5
         for (let index = 0; index <= timer; index++) {
             led.plot(2, 2)
