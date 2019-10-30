@@ -100,7 +100,7 @@ namespace grid {
             }
             basic.pause(250)
         }
-        grid.clearRed()
+        clearRed()
         basic.clearScreen()
     }
 
@@ -112,7 +112,7 @@ namespace grid {
     //% weight=96
     //% block="show red"
     //% group="Grid"
-    export function showRed() {
+    function showRed() {
         strip.showColor(NeoPixelColors.Red)
     }
 
@@ -124,7 +124,7 @@ namespace grid {
     //% weight=96
     //% block="clear red"
     //% group="Grid"
-    export function clearRed() {
+    function clearRed() {
         strip.clear()
         strip.show()
     }
