@@ -80,7 +80,7 @@ enum MotionTpye {
  * Extension blocks
  */
 //% weight=48 color=#0063A0 icon="\uf018" block="Microcar"
-//% groups="['Color Line Follower', 'Car']"
+//% groups="['Color Line Follower', 'Car', 'Event Line Follower', 'others']"
 namespace BitKit {
 
     /**
@@ -175,7 +175,7 @@ namespace BitKit {
      */
     //% blockId=sensor_liner_create_event block="on Color Line Follower line position|%event"
     //% weight=100 
-    //% group="Color Line Follower"
+    //% advanced=true
     export function onLinePosition(event: LinerEvent, handler: () => void) {
         control.onEvent(eventIdLiner, event, handler);
         if (!initLiner) {
@@ -202,7 +202,7 @@ namespace BitKit {
      */
     //% blockId=sensor_color_create_event block="on Color Line Follower see |%event"
     //% weight=99
-    //% group="Color Line Follower"
+    //% advanced=true
     export function onColor(event: ColorEvent, handler: () => void) {
         const eventId = driver.subscribeToEventSource(SensorType.Liner);
         control.onEvent(eventId, event, handler);
@@ -241,7 +241,7 @@ namespace BitKit {
      */
     //% blockId=sensor_get_color_rgb block="Color Line Follower color value"
     //% weight=96
-    //% group="Color Line Follower"
+    //% advanced=true
     export function getColor(): number {
         let data: Buffer = pins.createBuffer(4);
         driver.i2cSendByte(SensorType.Liner, 0x04);
