@@ -13,7 +13,7 @@ namespace calibrate {
     //% group="Calibration"
     export function forward() {
         BitKit.setMotormoduleSpeed(255, 255);
-        basic.pause(8000); //8 seconds
+        basic.pause(7500); //7.5 seconds
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
@@ -39,8 +39,8 @@ namespace calibrate {
 namespace grid {
     let rcal = 1;
     let fcal = 1;
-    let flcal = 0;
-    let frcal = 0;
+    let flcal = 0; //forward left calibrate
+    let frcal = 0; //forward right calibrate
     let strip: neopixel.Strip = null //make strip
 
     /**
@@ -64,7 +64,7 @@ namespace grid {
     //% group="Grid"
     export function turnright() {
         BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(2000); //2 seconds???
+        basic.pause(850); //2 seconds???
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
@@ -76,7 +76,7 @@ namespace grid {
     //% group="Grid"
     export function turnleft() {
         BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(2000); //2 seconds???
+        basic.pause(850); //2 seconds???
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
