@@ -1,7 +1,7 @@
 /**
  * Calibration blocks
  */
-//% weight=48 color=#FF622E icon="\uf0ad" block="Calibrate"
+//% weight=48 color=#FF4EC7 icon="\uf0ad" block="Calibrate"
 //% groups="['Calibration', 'Setup']"
 namespace calibrate {
     /**
@@ -34,7 +34,7 @@ namespace calibrate {
 /**
  * Grid Blocks
  */
-//% weight=48 color=#E23405 icon="\uf009" block="Grid"
+//% weight=48 color=#FF6523 icon="\uf009" block="Grid"
 //% groups="['Setup', 'Grid']"
 namespace grid {
     let rcal = 1;

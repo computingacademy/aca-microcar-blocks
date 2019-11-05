@@ -1,7 +1,7 @@
 /**
  * Headlights Blocks
  */
-//% weight=48 color=#ffb612 icon="\uf0e7" block="Headlights"
+//% weight=48 color=#ff9f1f icon="\uf0e7" block="Headlights"
 //% groups="['Action', 'Colours']"
 namespace headlights {
     let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
@@ -77,6 +77,9 @@ namespace headlights {
                 else if (colour = 3) {
                     strip.showColor(NeoPixelColors.Green)
                 }
+                else if (colour = 4) {
+                    strip.showColor(NeoPixelColors.Blue)
+                }
                 music.playTone(Note.C, 1000)
             }
             basic.pause(250)
@@ -119,6 +122,12 @@ namespace headlights {
     export function showAny(colour: ColorEvent) {
         if (colour == ColorEvent.G){
             strip.showColor(NeoPixelColors.Green)
+        }
+        else if (colour == ColorEvent.B) {
+            strip.showColor(NeoPixelColors.Blue)
+        }
+        else if (colour == ColorEvent.R) {
+            strip.showColor(NeoPixelColors.Red)
         }
     }
 
