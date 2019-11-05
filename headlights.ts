@@ -1,9 +1,9 @@
 /**
  * Headlights Blocks
  */
-//% weight=48 color=#ff9f1f icon="\uf0e7" block="Headlights"
+//% weight=48 color=#ff9f1f icon="\uf0e7" block="Lights"
 //% groups="['Action', 'Colours']"
-namespace headlights {
+namespace lights {
     let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
     
     /**
@@ -11,7 +11,7 @@ namespace headlights {
     * rattle motors, make noise on speaker, show pretty picture on face
     */
     //% weight=96
-    //% block="EXPLODE"
+    //% block="explode"
     //% group="Action"   
     export function explode() {
         let timer = 5
