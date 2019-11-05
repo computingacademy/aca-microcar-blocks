@@ -11,7 +11,7 @@ namespace calibrate {
     //% weight=96
     //% block="forward calibrate"
     //% group="Calibration"
-    export function forward() {
+    export function forwards() {
         BitKit.setMotormoduleSpeed(255, 255);
         basic.pause(7000); //7.5 seconds
         BitKit.setMotormoduleSpeed(0, 0);
