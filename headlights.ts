@@ -80,7 +80,7 @@ namespace headlights {
                 else if (colour = 4) {
                     strip.showColor(NeoPixelColors.Blue)
                 }
-                music.playTone(Note.C, 1000)
+                music.playTone(Note.G, 1000)
             }
             basic.pause(250)
         }
