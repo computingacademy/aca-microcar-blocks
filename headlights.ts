@@ -69,6 +69,7 @@ namespace headlights {
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
     //% group="Action"
     export function IfThereIsCoralAnd(colour: ColorEvent) {
+        let flag = 1
         for (let index = 0; index < 2; index++) {
             if (BitKit.wasColorTriggered(colour)) {
                 if (colour == 2) {
@@ -80,7 +81,10 @@ namespace headlights {
                 else if (colour = 4) {
                     strip.showColor(NeoPixelColors.Blue)
                 }
-                music.playTone(Note.G, 1000)
+                if (flag == 1) { //make sure tone only plays once
+                    music.playTone(Note.G, 1000)
+                    flag = 0
+                }    
             }
             basic.pause(250)
         }
