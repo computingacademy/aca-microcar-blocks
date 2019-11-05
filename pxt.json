@@ -11,7 +11,8 @@
         "main.ts",
         "BitKit.ts",
         "driver.ts",
-        "neopixel.ts"
+        "neopixel.ts",
+        "headlights.ts"
     ],
     "testFiles": [
         "test.ts"

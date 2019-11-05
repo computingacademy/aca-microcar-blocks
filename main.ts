@@ -81,55 +81,6 @@ namespace grid {
     }
 
     /**
-    * Red light on coral
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
-    */
-    //% weight=96
-    //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
-    //% group="Grid"
-    export function IfThereIsCoral(colour: ColorEvent) {
-        for (let index = 0; index < 2; index++) {
-            if (BitKit.wasColorTriggered(colour)) {
-                if (colour == 2) {
-                    strip.showColor(NeoPixelColors.Red)
-                }
-                else if (colour = 3) {
-                    strip.showColor(NeoPixelColors.Green)
-                }
-            }
-            basic.pause(250)
-        }
-        clearRed()
-        basic.clearScreen()
-    }
-
-    /**
-    * Show red
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
-    */
-    //% weight=96
-    //% block="show red"
-    //% group="Grid"
-    function showRed() {
-        strip.showColor(NeoPixelColors.Red)
-    }
-
-    /**
-    * Clear red
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
-    */
-    //% weight=96
-    //% block="clear red"
-    //% group="Grid"
-    function clearRed() {
-        strip.clear()
-        strip.show()
-    }
-
-    /**
     * Calibration setup
     * two inputs
     */
@@ -149,41 +100,6 @@ namespace grid {
         else {
             //error please enter number
         }
-    }
-}
-
-/**
- * Digger Blocks
- */
-//% weight=48 color=#ffb612 icon="\uf0e7" block="Digger"
-//% groups="['funfun']"
-namespace digger {
-    /**
-    * Make explosion movement and sound
-    * rattle motors, make noise on speaker, show pretty picture on face
-    */
-    //% weight=96
-    //% block="EXPLODE"
-    //% group="funfun"    
-    export function explode() {
-        let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
-        let timer = 5
-        for (let index = 0; index <= timer; index++) {
-            led.plot(2, 2)
-            BitKit.setMotormoduleSpeed(-255, 255)
-            strip.showColor(neopixel.colors(NeoPixelColors.Red))
-            basic.pause((timer - index) * 40)
-            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
-            basic.pause((timer - index) * 40)
-            basic.clearScreen()
-            BitKit.setMotormoduleSpeed(255, -255)
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
-            basic.pause((timer - index) * 40)
-            strip.showColor(neopixel.colors(NeoPixelColors.White))
-            basic.pause((timer - index) * 40)
-        }
-        BitKit.setMotormoduleSpeed(0, 0);
-        music.playTone(988, 100);
     }
 }
 

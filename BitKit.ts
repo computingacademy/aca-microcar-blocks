@@ -11,14 +11,14 @@ enum SensorType {
 };
 
 enum ColorEvent {
-    //% block=black
-    Black = 1,
     //% block=red
     R = 2,
     //% block=green
     G = 3,
     //% block=blue
     B = 4,
+    //% block=black
+    Black = 1,
     //% block=others
     Other = 5
 };
