@@ -88,7 +88,7 @@ namespace BitKit {
      * @param direction the direction that want to set.
      * @param speed the speed that want to run.
      */
-    //% blockId=motor_set_action block="Go|%direction|at|%speed speed"
+    //% blockId=motor_set_action block="go|%direction|at|%speed speed"
     //% weight=100
     //% group="Car"
     export function setMotormoduleAction(direction: DirectionTpye, speed: SpeedTpye) {
@@ -136,7 +136,7 @@ namespace BitKit {
     /**
      * Stop the motormodule.
      */
-    //% blockId=motor_stop_run block="Stop"
+    //% blockId=motor_stop_run block="stop"
     //% weight=99
     //% group="Car"
     export function stopMotormodule() {
@@ -148,7 +148,7 @@ namespace BitKit {
      * @param left the left speed you want to run.
      * @param right the right speed you want to run.
      */
-    //% blockId=motor_set_speed_with_duty block="Left motor|%left|, right motor |%right"
+    //% blockId=motor_set_speed_with_duty block="left motor|%left|, right motor |%right"
     //% left.min=-255 left.max=255 left.defl=0
     //% right.min=-255 right.max=255 right.defl=0
     //% weight=98
@@ -212,7 +212,7 @@ namespace BitKit {
      * See if the line follower recognized the position of the line underneath.
      * @param event of liner device
      */
-    //% blockId=sensor_is_liner_event_generate block="See line at|%event|"
+    //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
     //% weight=98
     //% group="Color Line Follower"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
@@ -226,7 +226,7 @@ namespace BitKit {
      * See if the color sensor detected a specific color.
      * @param event of color device
      */
-    //% blockId=sensor_is_color_event_generate block="See color|%event|"
+    //% blockId=sensor_is_color_event_generate block="see color|%event|"
     //% weight=97
     //% group="Color Line Follower"
     export function wasColorTriggered(event: ColorEvent): boolean {

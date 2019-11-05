@@ -56,7 +56,7 @@ namespace headlights {
             }
             basic.pause(250)
         }
-        clearRed()
+        clearAll()
         basic.clearScreen()
     }
 
@@ -81,7 +81,7 @@ namespace headlights {
             }
             basic.pause(250)
         }
-        clearRed()
+        clearAll()
         basic.clearScreen()
     }
 
@@ -91,7 +91,7 @@ namespace headlights {
     //% weight=96
     //% block="show red"
     //% group="Colours"
-    export function showRed() {
+    function showRed() {
         strip.showColor(NeoPixelColors.Red)
     }
 
@@ -101,9 +101,9 @@ namespace headlights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=96
-    //% block="clear red"
+    //% block="clear all"
     //% group="Colours"
-    export function clearRed() {
+    export function clearAll() {
         strip.clear()
         strip.show()
     }
