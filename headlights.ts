@@ -5,7 +5,7 @@
 //% groups="['Action', 'Colours']"
 namespace lights {
     let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
-    
+
     /**
     * Make explosion movement and sound
     * rattle motors, make noise on speaker, show pretty picture on face
@@ -84,7 +84,7 @@ namespace lights {
                 if (flag == 1) { //make sure tone only plays once
                     music.playTone(Note.G, 1000)
                     flag = 0
-                }    
+                }
             }
             basic.pause(250)
         }
@@ -124,7 +124,7 @@ namespace lights {
     //% block="show |%colour"
     //% group="Colours"
     export function showAny(colour: ColorEvent) {
-        if (colour == ColorEvent.G){
+        if (colour == ColorEvent.G) {
             strip.showColor(NeoPixelColors.Green)
         }
         else if (colour == ColorEvent.B) {
