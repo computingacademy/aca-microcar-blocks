@@ -13,7 +13,7 @@ namespace calibrate {
     //% group="Calibration"
     export function forward() {
         BitKit.setMotormoduleSpeed(255, 255);
-        basic.pause(7500); //7.5 seconds
+        basic.pause(7000); //7.5 seconds
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
