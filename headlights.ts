@@ -67,7 +67,7 @@ namespace headlights {
     */
     //% weight=96
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
-    //% group="Grid"
+    //% group="Action"
     export function IfThereIsCoralAnd(colour: ColorEvent) {
         for (let index = 0; index < 2; index++) {
             if (BitKit.wasColorTriggered(colour)) {
