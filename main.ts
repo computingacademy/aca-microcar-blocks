@@ -52,7 +52,7 @@ namespace grid {
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2160 + 5 * (Math.abs(flcal + frcal)) ^ 2); //needs to be different for each robot. Currently setup for Lewis
+        basic.pause(2300 + 9 * (Math.abs(flcal + frcal)) ^ 2); //needs to be different for each robot. Currently setup for Lewis
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
@@ -64,7 +64,7 @@ namespace grid {
     //% group="Grid"
     export function turnright() {
         BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(850); //2 seconds???
+        basic.pause(950); //2 seconds???
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
@@ -76,7 +76,7 @@ namespace grid {
     //% group="Grid"
     export function turnleft() {
         BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(850); //2 seconds???
+        basic.pause(950); 
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
