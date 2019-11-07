@@ -64,7 +64,7 @@ namespace grid {
     //% group="Grid"
     export function turnright() {
         BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(1000 - 18 * x); // (for 0 calib only)
+        basic.pause(1000 - 22 * x); // (for 0 calib only)
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
@@ -76,7 +76,7 @@ namespace grid {
     //% group="Grid"
     export function turnleft() {
         BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(930 - 18 * x);
+        basic.pause(930 - 22 * x);
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
