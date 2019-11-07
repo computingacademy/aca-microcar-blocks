@@ -42,7 +42,7 @@ namespace grid {
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: neopixel.Strip = null //make strip
-
+    let x = Math.abs(flcal + frcal)
     /**
     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
     * no input
@@ -52,7 +52,7 @@ namespace grid {
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2270 + 9 * (Math.abs(flcal + frcal)) ^ 2); //needs to be different for each robot. Currently setup for Lewis
+        basic.pause(2250 + 9 * x ^ 2 - 15 * x); //needs to be different for each robot. Currently setup for Lewis
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
@@ -64,11 +64,11 @@ namespace grid {
     //% group="Grid"
     export function turnright() {
         BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(970); //2 seconds???
+        basic.pause(1000); // (for 0 calib only)
         BitKit.setMotormoduleSpeed(0, 0);
     }
     /**
-    * Turn Right
+    * Turn Left
     * no input
     */
     //% weight=96
@@ -76,7 +76,7 @@ namespace grid {
     //% group="Grid"
     export function turnleft() {
         BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(930); 
+        basic.pause(930 - 8*x);
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
