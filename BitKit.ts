@@ -79,7 +79,7 @@ enum MotionTpye {
 /**
  * Extension blocks
  */
-//% weight=48 color=#4545de icon="\uf018" block="Microcar"
+//% weight=48 color=#4646df icon="\uf018" block="Microcar"
 //% groups="['Color Line Follower', 'Car', 'Event Line Follower', 'others']"
 namespace BitKit {
 
