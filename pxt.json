@@ -1,7 +1,7 @@
 {
     "name": "aca-microcar-blocks",
     "version": "0.0.1",
-    "description": "Anananana extension",
+    "description": "An ACA extension for the Resources Challenge: Automation",
     "dependencies": {
         "core": "*",
         "ws2018b": "github:Microsoft/pxt-ws2812b#v0.0.4"
