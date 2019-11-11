@@ -41,18 +41,10 @@ namespace lights {
     //% weight=96
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
     //% group="Action"
-    export function IfThereIsCoral(colour: ColorEvent) {
+    export function IfThereIsCoral(colour: NeoPixelColors) {
         for (let index = 0; index < 2; index++) { //do it twice so it actually triggers
             if (BitKit.wasColorTriggered(ColorEvent.R)) {
-                if (colour == 2) {
-                    strip.showColor(NeoPixelColors.Red)
-                }
-                else if (colour = 3) {
-                    strip.showColor(NeoPixelColors.Green)
-                }
-                else if (colour = 4) {
-                    strip.showColor(NeoPixelColors.Blue)
-                }
+                strip.showColor(colour)
             }
             basic.pause(250)
         }
@@ -68,19 +60,11 @@ namespace lights {
     //% weight=96
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
     //% group="Action"
-    export function IfThereIsCoralAnd(colour: ColorEvent) {
+    export function IfThereIsCoralAnd(colour: NeoPixelColors) {
         let flag = 1
         for (let index = 0; index < 2; index++) { //do twice so the event actually triggers
             if (BitKit.wasColorTriggered(ColorEvent.R)) {
-                if (colour == 2) {
-                    strip.showColor(NeoPixelColors.Red)
-                }
-                else if (colour = 3) {
-                    strip.showColor(NeoPixelColors.Green)
-                }
-                else if (colour = 4) {
-                    strip.showColor(NeoPixelColors.Blue)
-                }
+                strip.showColor(colour)
                 if (flag == 1) { //make sure tone only plays once
                     music.playTone(Note.G, 1000)
                     flag = 0
@@ -123,16 +107,7 @@ namespace lights {
     //% weight=96
     //% block="show |%colour"
     //% group="Colours"
-    export function showAny(colour: ColorEvent) {
-        if (colour == ColorEvent.G) {
-            strip.showColor(NeoPixelColors.Green)
-        }
-        else if (colour == ColorEvent.B) {
-            strip.showColor(NeoPixelColors.Blue)
-        }
-        else if (colour == ColorEvent.R) {
-            strip.showColor(NeoPixelColors.Red)
-        }
+    export function showAny(colour: NeoPixelColors) {
+        strip.showColor(colour)
     }
-
 }
