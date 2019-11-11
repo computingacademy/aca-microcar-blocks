@@ -37,20 +37,21 @@ namespace calibrate {
 //% weight=48 color=#FF6523 icon="\uf009" block="Grid"
 //% groups="['Setup', 'Grid']"
 namespace grid {
+    let m = [2460, 1020, 950]
     let rcal = 1;
     let fcal = 1;
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: neopixel.Strip = null //make strip
-    let x = Math.abs(flcal + frcal)
-
+    let x = 0 //init
+    let short = 0
     /**
     * Sanity check that the blocks updated
     */
     // weight=97
     //%block = "tester"
     export function tester() {
-        basic.showIcon(IconNames.Heart)
+        basic.showIcon(IconNames.SmallDiamond)
     }
 
     /**
@@ -61,22 +62,13 @@ namespace grid {
     //% block="forward one space"
     //% group="Grid"
     export function forward() {
+        let bonus = 520 * short //extra distance for cars that run short
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2250 + 9 * x ^ 2 - 15 * x); //needs to be different for each robot. Currently setup for Lewis
+        basic.pause(m[0])
+        //basic.pause(2250 + 2 * x ^ 2 + bonus); //needs to be different for each robot. Currently setup for Lewis
         BitKit.setMotormoduleSpeed(0, 0);
     }
-    /**
-    * Turn Right
-    * no input
-    */
-    //% weight=96
-    //% block="turn right"
-    //% group="Grid"
-    export function turnright() {
-        BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(1000 - 35 * x); // (for 0 calib only)
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
+
     /**
     * Turn Left
     * no input
@@ -85,8 +77,27 @@ namespace grid {
     //% block="turn left"
     //% group="Grid"
     export function turnleft() {
+        let bonus = 160 * short //extra distance for cars that run short
+        let rotcal = 7 - x
         BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(930 - 25 * x);
+        //basic.pause(867 + 9 * x + bonus);
+        basic.pause(m[1])
+        BitKit.setMotormoduleSpeed(0, 0);
+    }
+
+    /**
+    * Turn Right
+    * no input
+    */
+    //% weight=96
+    //% block="turn right"
+    //% group="Grid"
+    export function turnright() {
+        let bonus = 200 * short
+        let rotcal = 7 - x
+        BitKit.setMotormoduleSpeed(255, -255);
+        //basic.pause(813 + 21 * x + bonus); // (for 0 calib only)
+        basic.pause(m[2])
         BitKit.setMotormoduleSpeed(0, 0);
     }
 
@@ -100,7 +111,8 @@ namespace grid {
     export function setup(forwardinput: number, rotationinput: number) {
         strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
-        rcal = rotationinput * 1; //dark magic
+        //rcal = rotationinput * 1; //dark magic
+        short = rotationinput;
         if (forwardinput > 0) {
             flcal = forwardinput;
         }
@@ -110,6 +122,7 @@ namespace grid {
         else {
             //error please enter number
         }
+        x = Math.abs(flcal + frcal)
     }
 }
 
