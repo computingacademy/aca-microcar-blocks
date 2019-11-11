@@ -45,14 +45,6 @@ namespace grid {
     let strip: neopixel.Strip = null //make strip
     let x = 0 //init
     let short = 0
-    /**
-    * Sanity check that the blocks updated
-    */
-    // weight=97
-    //%block = "tester"
-    export function tester() {
-        basic.showIcon(IconNames.SmallDiamond)
-    }
 
     /**
     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
