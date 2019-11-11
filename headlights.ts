@@ -42,8 +42,8 @@ namespace lights {
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
     //% group="Action"
     export function IfThereIsCoral(colour: ColorEvent) {
-        for (let index = 0; index < 2; index++) {
-            if (BitKit.wasColorTriggered(colour)) {
+        for (let index = 0; index < 2; index++) { //do it twice so it actually triggers
+            if (BitKit.wasColorTriggered(ColorEvent.R)) {
                 if (colour == 2) {
                     strip.showColor(NeoPixelColors.Red)
                 }
@@ -70,8 +70,8 @@ namespace lights {
     //% group="Action"
     export function IfThereIsCoralAnd(colour: ColorEvent) {
         let flag = 1
-        for (let index = 0; index < 2; index++) {
-            if (BitKit.wasColorTriggered(colour)) {
+        for (let index = 0; index < 2; index++) { //do twice so the event actually triggers
+            if (BitKit.wasColorTriggered(ColorEvent.R)) {
                 if (colour == 2) {
                     strip.showColor(NeoPixelColors.Red)
                 }
@@ -98,7 +98,7 @@ namespace lights {
     //% weight=96
     //% block="show red"
     //% group="Colours"
-    function showRed() {
+    function showRed() { //legacy function, no block for it
         strip.showColor(NeoPixelColors.Red)
     }
 
