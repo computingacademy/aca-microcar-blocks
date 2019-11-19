@@ -80,7 +80,7 @@ enum MotionTpye {
  * Extension blocks
  */
 //% weight=48 color=#4646DF icon="\uf018" block="Microcar"
-//% groups="['Color Line Follower', 'Car', 'Event Line Follower', 'others']"
+//% groups="['Colour Sensor', 'Line Follower', 'Car', 'Event Line Follower', 'others']"
 namespace BitKit {
 
     /**
@@ -214,7 +214,7 @@ namespace BitKit {
      */
     //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
     //% weight=98
-    //% group="Color Line Follower"
+    //% group="Line Follower"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
         let eventValue = event;
         if (!initLiner) onLinePosition(event, () => { });
@@ -228,7 +228,7 @@ namespace BitKit {
      */
     //% blockId=sensor_is_color_event_generate block="see color|%event|"
     //% weight=97
-    //% group="Color Line Follower"
+    //% group="Colour Sensor"
     export function wasColorTriggered(event: ColorEvent): boolean {
         let eventValue = event;
         if (driver.addrBuffer[SensorType.Liner] == 0) onColor(event, () => { });
@@ -247,5 +247,24 @@ namespace BitKit {
         driver.i2cSendByte(SensorType.Liner, 0x04);
         data = driver.i2cReceiveBytes(SensorType.Liner, 4);
         return (data[0] + data[1] * 256 + data[2] * 65536);
+    }
+
+    /**
+     * See if colour sensor detected a specific custom colour
+     *
+     */
+    //%blockId=i2c block="see white"
+    //% group="Colour Sensor"
+    export function seeWhite(): boolean {
+        //separate colour channels
+        let col = getColor()
+        let red = col >>> 16
+        let green = col & 0b1111111100000000
+        let blue = col & 0b11111111
+
+        if (col > 16759431) { //almost white, TODO: separate out RGB channels for accuracy/rewrite getColor
+            return true;
+        }
+        return false;
     }
 }
