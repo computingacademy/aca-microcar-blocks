@@ -259,12 +259,13 @@ namespace BitKit {
         //separate colour channels
         let col = getColor()
         let red = col >>> 16
-        let green = col & 0b1111111100000000
-        let blue = col & 0b11111111
+        let green = col & 0xFF00
+        let blue = col & 0xFF
 
-        if (col > 16759431) { //almost white, TODO: separate out RGB channels for accuracy/rewrite getColor
+        if (col > 16759431) { //almost white (FFBA87), might need to lower Rval
             return true;
         }
+
         return false;
     }
 }
