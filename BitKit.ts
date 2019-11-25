@@ -279,12 +279,12 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.R:
-                if (red > 0xE0 && green < 0x80 && blue < 0x80) { //gets red dots, excludes dirt background
+                if (red > 0xD0 && green < 0x90 && blue < 0x80) { //gets red dots, excludes dirt background
                     return true;
                 }
                 break;
             case CustomColours.G:
-                if (red < 0x80 && green > 0x80 && blue < 0x80) {
+                if (red < 0x80 && green > 0xA0 && blue < 0x80) {
                     return true;
                 }
                 break;
