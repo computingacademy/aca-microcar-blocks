@@ -23,6 +23,17 @@ enum ColorEvent {
     Other = 5
 };
 
+enum CustomColours {
+    //%block=red
+    R,
+    //%block=green
+    G,
+    //%block=blue
+    B,
+    //%block=white
+    W
+};
+
 enum LinerEvent {
     //% block=middle
     Middle = 1,
@@ -226,8 +237,7 @@ namespace BitKit {
      * See if the color sensor detected a specific color.
      * @param event of color device
      */
-    //% blockId=sensor_is_color_event_generate block="see color|%event|"
-    //% weight=97
+    //% weight=0
     //% group="Colour Sensor"
     export function wasColorTriggered(event: ColorEvent): boolean {
         let eventValue = event;
@@ -253,17 +263,36 @@ namespace BitKit {
      * See if colour sensor detected a specific custom colour
      *
      */
-    //%blockId=i2c block="see white"
+    //%blockId=i2c block="see colour |%checkCol|"
     //% group="Colour Sensor"
-    export function seeWhite(): boolean {
+    export function seeCustom(checkCol: CustomColours): boolean {
         //separate colour channels
         let col = getColor()
         let red = col >>> 16
-        let green = col & 0b1111111100000000
-        let blue = col & 0b11111111
+        let green = (col & 0xFF00) >>> 8
+        let blue = col & 0xFF
 
-        if (col > 16759431) { //almost white, TODO: separate out RGB channels for accuracy/rewrite getColor
-            return true;
+        switch (checkCol) {
+            case CustomColours.W:
+                if (col > 16759431) { //almost white (FFBA87), might need to lower Rval
+                    return true;
+                }
+                break;
+            case CustomColours.R:
+                if (red > 0xE0 && green < 0xE0 && blue < 0xE0 && red > green + 0x30) { //gets red dots, excludes dirt background
+                    return true;
+                }
+                break;
+            case CustomColours.G:
+                if (red < 0x90 && green > 0xA0 && green > red + 0x30) { //and green greener than red
+                    return true;
+                }
+                break;
+            case CustomColours.B:
+                if (red < 0x80 && green < 0x80 && blue > 0x80) {
+                    return true;
+                }
+                break;
         }
         return false;
     }
