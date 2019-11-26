@@ -94,7 +94,7 @@ namespace grid {
     export function setup(forwardinput: number, rotationinput: number) {
         strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
-        rcal = 1000*90/rotationinput; //time needed to turn left in ms
+        rcal = 1000 * 90 / rotationinput; //time needed to turn left in ms
 
         if (forwardinput > 0) {
             flcal = forwardinput;
