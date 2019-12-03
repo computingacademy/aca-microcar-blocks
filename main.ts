@@ -55,6 +55,7 @@ namespace grid {
         basic.pause(2250)
         //basic.pause(2250 + 2 * x ^ 2 + bonus); //needs to be different for each robot. Currently setup for Lewis
         BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
     }
 
     /**
@@ -69,6 +70,7 @@ namespace grid {
         //basic.pause(867 + 9 * x + bonus);
         basic.pause(rcal)
         BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
     }
 
     /**
@@ -82,6 +84,7 @@ namespace grid {
         BitKit.setMotormoduleSpeed(255, -255);
         basic.pause(rcal - fcal * 5) //right different to left due to wonky wheels
         BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
     }
 
     /**
@@ -94,7 +97,7 @@ namespace grid {
     export function setup(forwardinput: number, rotationinput: number) {
         strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
-        rcal = 1000*90/rotationinput; //time needed to turn left in ms
+        rcal = 1000 * 90 / rotationinput; //time needed to turn left in ms
 
         if (forwardinput > 0) {
             flcal = forwardinput;
