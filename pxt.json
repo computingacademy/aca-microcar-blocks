@@ -3,8 +3,7 @@
     "version": "0.0.7",
     "description": "An ACA extension for the Resources Challenge: Automation",
     "dependencies": {
-        "core": "*",
-        "ws2018b": "github:Microsoft/pxt-ws2812b#v0.0.4"
+        "core": "*"
     },
     "files": [
         "README.md",
@@ -12,7 +11,8 @@
         "BitKit.ts",
         "driver.ts",
         "neopixel.ts",
-        "headlights.ts"
+        "headlights.ts",
+        "sendBuffer.asm"
     ],
     "testFiles": [
         "test.ts"
