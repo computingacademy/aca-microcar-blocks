@@ -48,7 +48,7 @@ namespace grid {
     * no input
     */
     //% weight=96
-    //% block="forward one space"
+    //% block="forward one step"
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
