@@ -11,7 +11,6 @@ namespace lights {
     * rattle motors, make noise on speaker, show pretty picture on face
     */
     //% weight=96
-    //% block="explode"
     //% group="Action"   
     export function explode() {
         let timer = 5
@@ -39,7 +38,6 @@ namespace lights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=96
-    //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
     //% group="Action"
     export function IfThereIsCoral(colour: NeoPixelColors) {
         for (let index = 0; index < 2; index++) { //do it twice so it actually triggers
@@ -58,7 +56,6 @@ namespace lights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=96
-    //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
     //% group="Action"
     export function IfThereIsCoralAnd(colour: NeoPixelColors) {
         let flag = 1
@@ -80,7 +77,6 @@ namespace lights {
     * Show red
     */
     //% weight=96
-    //% block="show red"
     //% group="Colours"
     function showRed() { //legacy function, no block for it
         strip.showColor(NeoPixelColors.Red)
@@ -92,7 +88,6 @@ namespace lights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=96
-    //% block="clear all"
     //% group="Colours"
     export function clearAll() {
         strip.clear()
@@ -105,7 +100,6 @@ namespace lights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=96
-    //% block="show |%colour"
     //% group="Colours"
     export function showAny(colour: NeoPixelColors) {
         strip.showColor(colour)

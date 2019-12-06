@@ -99,7 +99,6 @@ namespace BitKit {
      * @param direction the direction that want to set.
      * @param speed the speed that want to run.
      */
-    //% blockId=motor_set_action block="go|%direction|at|%speed speed"
     //% weight=100
     //% group="Car"
     export function setMotormoduleAction(direction: DirectionTpye, speed: SpeedTpye) {
@@ -147,7 +146,6 @@ namespace BitKit {
     /**
      * Stop the motormodule.
      */
-    //% blockId=motor_stop_run block="stop"
     //% weight=99
     //% group="Car"
     export function stopMotormodule() {
@@ -159,7 +157,6 @@ namespace BitKit {
      * @param left the left speed you want to run.
      * @param right the right speed you want to run.
      */
-    //% blockId=motor_set_speed_with_duty block="left motor|%left|, right motor |%right"
     //% left.min=-255 left.max=255 left.defl=0
     //% right.min=-255 right.max=255 right.defl=0
     //% weight=98
@@ -184,7 +181,6 @@ namespace BitKit {
      * @param event type of liner to detect
      * @param handler code to run
      */
-    //% blockId=sensor_liner_create_event block="on Color Line Follower line position|%event"
     //% weight=100 
     //% advanced=true
     export function onLinePosition(event: LinerEvent, handler: () => void) {
@@ -211,7 +207,6 @@ namespace BitKit {
      * @param event type of color to detect
      * @param handler code to run
      */
-    //% blockId=sensor_color_create_event block="on Color Line Follower see |%event"
     //% weight=99
     //% advanced=true
     export function onColor(event: ColorEvent, handler: () => void) {
@@ -223,7 +218,6 @@ namespace BitKit {
      * See if the line follower recognized the position of the line underneath.
      * @param event of liner device
      */
-    //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
     //% weight=98
     //% group="Line Follower"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
@@ -249,7 +243,6 @@ namespace BitKit {
     /**
      * Get the color value from the color sensor in R:G:B.
      */
-    //% blockId=sensor_get_color_rgb block="Color Line Follower color value"
     //% weight=96
     //% advanced=true
     export function getColor(): number {
@@ -263,7 +256,6 @@ namespace BitKit {
      * See if colour sensor detected a specific custom colour
      * InnovationShowcase check dummy commit
      */
-    //%blockId=i2c block="see colour |%checkCol|"
     //% group="Colour Sensor"
     export function seeCustom(checkCol: CustomColours): boolean {
         //separate colour channels

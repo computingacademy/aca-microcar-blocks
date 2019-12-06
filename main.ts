@@ -48,7 +48,6 @@ namespace grid {
     * no input
     */
     //% weight=96
-    //% block="forward one step"
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
@@ -63,7 +62,6 @@ namespace grid {
     * no input
     */
     //% weight=96
-    //% block="turn left"
     //% group="Grid"
     export function turnleft() {
         BitKit.setMotormoduleSpeed(-255, 255);
@@ -78,7 +76,6 @@ namespace grid {
     * no input
     */
     //% weight=96
-    //% block="turn right"
     //% group="Grid"
     export function turnright() {
         BitKit.setMotormoduleSpeed(255, -255);
@@ -92,7 +89,6 @@ namespace grid {
     * two inputs
     */
     //% weight=96
-    //% block="setup f:|%fcal r:|%rcal"
     //% group="Setup"
     export function setup(forwardinput: number, rotationinput: number) {
         strip = neopixel_hidden.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
