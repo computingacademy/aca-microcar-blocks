@@ -10,7 +10,7 @@
         "main.ts",
         "BitKit.ts",
         "driver.ts",
-        "neopixel_hidden.ts",
+        "newopixel.ts",
         "lights.ts",
         "sendBuffer.asm"
     ],
