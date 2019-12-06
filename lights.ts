@@ -1,18 +1,53 @@
 /**
- * Headlights Blocks
+ * Lights Blocks
  */
 //% weight=48 color=#ff9f1f icon="\uf0e7" block="Lights"
-//% groups="['Colours', 'Action']"
+//% groups=['Colours', 'Actions']
 namespace lights {
     let strip = neopixel_hidden.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
     /**
+    * Show red
+    */
+    //% weight=0
+    //% block="show red"
+    //% group="Colours"
+    function showRed() { //legacy function, no block for it
+        strip.showColor(NeoPixelColors.Red)
+    }
+
+    /**
+    * Clear red
+    * mimic the colour of the ground under the bot.
+    * eg. see red, show red, see blue, show blue
+    */
+    //% weight=90
+    //% block="clear all"
+    //% group="Colours"
+    export function clearAll() {
+        strip.clear()
+        strip.show()
+    }
+
+    /**
+    * Show any
+    * mimic the colour of the ground under the bot.
+    * eg. see red, show red, see blue, show blue
+    */
+    //% weight=100
+    //% block="show |%colour"
+    //% group="Colours"
+    export function showAny(colour: NeoPixelColors) {
+        strip.showColor(colour)
+    }
+    
+    /**
     * Make explosion movement and sound
     * rattle motors, make noise on speaker, show pretty picture on face
     */
-    //% weight=96
+    //% weight=40
     //% block="explode"
-    //% group="Action"   
+    //% group="Actions"   
     export function explode() {
         let timer = 5
         for (let index = 0; index <= timer; index++) {
@@ -38,9 +73,9 @@ namespace lights {
     * mimic the colour of the ground under the bot.
     * eg. see red, show red, see blue, show blue
     */
-    //% weight=96
+    //% weight=60
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
-    //% group="Action"
+    //% group="Actions"
     export function IfThereIsCoral(colour: NeoPixelColors) {
         for (let index = 0; index < 2; index++) { //do it twice so it actually triggers
             if (BitKit.wasColorTriggered(ColorEvent.R)) {
@@ -57,9 +92,9 @@ namespace lights {
     * mimic the colour of the ground under the bot.
     * eg. see red, show red, see blue, show blue
     */
-    //% weight=96
+    //% weight=50
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
-    //% group="Action"
+    //% group="Actions"
     export function IfThereIsCoralAnd(colour: NeoPixelColors) {
         let flag = 1
         for (let index = 0; index < 2; index++) { //do twice so the event actually triggers
@@ -76,38 +111,36 @@ namespace lights {
         basic.clearScreen()
     }
 
-    /**
-    * Show red
-    */
-    //% weight=96
-    //% block="show red"
-    //% group="Colours"
-    function showRed() { //legacy function, no block for it
-        strip.showColor(NeoPixelColors.Red)
-    }
 
     /**
-    * Clear red
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
+    * Waddle left
+    * Give kids something to explore other than music tab.
+    * As a block, gives pseudo holonomic movement
     */
-    //% weight=96
-    //% block="clear all"
-    //% group="Colours"
-    export function clearAll() {
-        strip.clear()
-        strip.show()
-    }
-
-    /**
-    * Show any
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
-    */
-    //% weight=96
-    //% block="show |%colour"
-    //% group="Colours"
-    export function showAny(colour: NeoPixelColors) {
-        strip.showColor(colour)
+    //% advanced = true
+    //% block = "waddleLeft"
+    //% weight= 50
+    export function waddleLeft() {
+        strip.showColor(neopixel_hidden.colors(NeoPixelColors.Green))
+        basic.showLeds(`
+            . . # . .
+            . # . . .
+            # # # # #
+            . # . . .
+            . . # . .
+            `)
+        for (let i=0;i<5;i++){
+            BitKit.setMotormoduleSpeed(0, 255)
+            basic.pause(500)
+            BitKit.setMotormoduleSpeed(255, 0)
+            basic.pause(500)
+            BitKit.setMotormoduleSpeed(0,-255)
+            basic.pause(500)
+            BitKit.setMotormoduleSpeed(-255,0)
+            basic.pause(500)
+        }
+        BitKit.setMotormoduleSpeed(0,0)
+        basic.clearScreen()
+        clearAll()
     }
 }
