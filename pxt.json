@@ -10,8 +10,8 @@
         "main.ts",
         "BitKit.ts",
         "driver.ts",
-        "neopixel.ts",
-        "headlights.ts",
+        "neopixel_hidden.ts",
+        "lights.ts",
         "sendBuffer.asm"
     ],
     "testFiles": [
