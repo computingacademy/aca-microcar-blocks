@@ -38,7 +38,7 @@ namespace calibrate {
 //% groups="['Setup', 'Grid']"
 namespace grid {
     let rcal = 90;
-    let fcal = 1;
+    let fcal = 0;
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: neopixel_hidden.Strip = null //make strip
@@ -52,7 +52,7 @@ namespace grid {
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2250)
+        basic.pause(2250 + 10 * fcal) //add extra distance for over calibrated robots
         //basic.pause(2250 + 2 * x ^ 2 + bonus); //needs to be different for each robot. Currently setup for Lewis
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)

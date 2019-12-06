@@ -129,7 +129,7 @@ namespace lights {
             . # . . .
             . . # . .
             `)
-        for (let i=0;i<5;i++){
+        for (let i=0;i<6;i++){
             BitKit.setMotormoduleSpeed(0, 255)
             basic.pause(500)
             BitKit.setMotormoduleSpeed(255, 0)
