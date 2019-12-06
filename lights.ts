@@ -4,7 +4,7 @@
 //% weight=48 color=#ff9f1f icon="\uf0e7" block="Lights"
 //% groups=['Colours', 'Actions']
 namespace lights {
-    let strip = neopixel_hidden.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
+    let strip = newopixel.create(DigitalPin.P1, 4, NewoPixelMode.RGB)
 
     /**
     * Show red
@@ -13,7 +13,7 @@ namespace lights {
     //% block="show red"
     //% group="Colours"
     function showRed() { //legacy function, no block for it
-        strip.showColor(NeoPixelColors.Red)
+        strip.showColor(NewoPixelColors.Red)
     }
 
     /**
@@ -37,7 +37,7 @@ namespace lights {
     //% weight=100
     //% block="show |%colour"
     //% group="Colours"
-    export function showAny(colour: NeoPixelColors) {
+    export function showAny(colour: NewoPixelColors) {
         strip.showColor(colour)
     }
     
@@ -47,21 +47,22 @@ namespace lights {
     */
     //% weight=40
     //% block="explode"
-    //% group="Actions"   
+    //% group="Actions" 
+    //% advanced=true  
     export function explode() {
         let timer = 5
         for (let index = 0; index <= timer; index++) {
             led.plot(2, 2)
             BitKit.setMotormoduleSpeed(-255, 255)
-            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Red))
+            strip.showColor(newopixel.colors(NewoPixelColors.Red))
             basic.pause((timer - index) * 40)
-            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Orange))
+            strip.showColor(newopixel.colors(NewoPixelColors.Orange))
             basic.pause((timer - index) * 40)
             basic.clearScreen()
             BitKit.setMotormoduleSpeed(255, -255)
-            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Yellow))
+            strip.showColor(newopixel.colors(NewoPixelColors.Yellow))
             basic.pause((timer - index) * 40)
-            strip.showColor(neopixel_hidden.colors(NeoPixelColors.White))
+            strip.showColor(newopixel.colors(NewoPixelColors.White))
             basic.pause((timer - index) * 40)
         }
         BitKit.setMotormoduleSpeed(0, 0);
@@ -76,7 +77,7 @@ namespace lights {
     //% weight=60
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
     //% group="Actions"
-    export function IfThereIsCoral(colour: NeoPixelColors) {
+    export function IfThereIsCoral(colour: NewoPixelColors) {
         for (let index = 0; index < 2; index++) { //do it twice so it actually triggers
             if (BitKit.wasColorTriggered(ColorEvent.R)) {
                 strip.showColor(colour)
@@ -95,7 +96,7 @@ namespace lights {
     //% weight=50
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
     //% group="Actions"
-    export function IfThereIsCoralAnd(colour: NeoPixelColors) {
+    export function IfThereIsCoralAnd(colour: NewoPixelColors) {
         let flag = 1
         for (let index = 0; index < 2; index++) { //do twice so the event actually triggers
             if (BitKit.wasColorTriggered(ColorEvent.R)) {
@@ -121,7 +122,7 @@ namespace lights {
     //% block = "waddleLeft"
     //% weight= 50
     export function waddleLeft() {
-        strip.showColor(neopixel_hidden.colors(NeoPixelColors.Green))
+        strip.showColor(newopixel.colors(NewoPixelColors.Green))
         basic.showLeds(`
             . . # . .
             . # . . .
