@@ -41,7 +41,7 @@ namespace grid {
     let fcal = 1;
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
-    let strip: neopixel.Strip = null //make strip
+    let strip: neopixel_hidden.Strip = null //make strip
 
     /**
     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
@@ -95,7 +95,7 @@ namespace grid {
     //% block="setup f:|%fcal r:|%rcal"
     //% group="Setup"
     export function setup(forwardinput: number, rotationinput: number) {
-        strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
+        strip = neopixel_hidden.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
         rcal = 1000 * 90 / rotationinput; //time needed to turn left in ms
 

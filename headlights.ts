@@ -4,7 +4,7 @@
 //% weight=48 color=#ff9f1f icon="\uf0e7" block="Lights"
 //% groups="['Colours', 'Action']"
 namespace lights {
-    let strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
+    let strip = neopixel_hidden.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
 
     /**
     * Make explosion movement and sound
@@ -18,15 +18,15 @@ namespace lights {
         for (let index = 0; index <= timer; index++) {
             led.plot(2, 2)
             BitKit.setMotormoduleSpeed(-255, 255)
-            strip.showColor(neopixel.colors(NeoPixelColors.Red))
+            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Red))
             basic.pause((timer - index) * 40)
-            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
+            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Orange))
             basic.pause((timer - index) * 40)
             basic.clearScreen()
             BitKit.setMotormoduleSpeed(255, -255)
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            strip.showColor(neopixel_hidden.colors(NeoPixelColors.Yellow))
             basic.pause((timer - index) * 40)
-            strip.showColor(neopixel.colors(NeoPixelColors.White))
+            strip.showColor(neopixel_hidden.colors(NeoPixelColors.White))
             basic.pause((timer - index) * 40)
         }
         BitKit.setMotormoduleSpeed(0, 0);
