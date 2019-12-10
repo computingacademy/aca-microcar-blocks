@@ -111,6 +111,18 @@ namespace grid {
         fcal = forwardinput
         //x = Math.abs(flcal + frcal)
     }
+    /**
+     * Short
+     * Compensate for the microcar running too short by making it run further
+     */
+    //% weight=70
+    //% advanced = true
+    //% block="slow car: |%istrue"
+    export function slowcar(istrue: boolean) {
+        if (istrue) {
+            fcal += 100 //make the car run further
+        }
+    }
 }
 
 namespace ws2812b_cp {
