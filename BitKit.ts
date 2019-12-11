@@ -31,7 +31,9 @@ enum CustomColours { //made by Penny
     //%block=blue
     B,
     //%block=white
-    W
+    W,
+    //%block=purple
+    P
 };
 
 enum LinerEvent {
@@ -289,7 +291,12 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.B:
-                if (blue > red + 0x37 && blue > green + 0x37) { //blue bluer than red and green
+                if (blue > red + 0x20 && blue > green + 0x20) { //blue bluer than red and green
+                    return true;
+                }
+                break;
+            case CustomColours.P:
+                if (red > green + 0x25 && blue > green + 0x30){ // both red and blue more than green by a bit
                     return true;
                 }
                 break;

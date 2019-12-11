@@ -22,7 +22,7 @@ namespace lights {
     * eg. see red, show red, see blue, show blue
     */
     //% weight=90
-    //% block="clear all"
+    //% block="clear lights"
     //% group="Colours"
     export function clearAll() {
         strip.clear()
