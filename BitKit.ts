@@ -286,7 +286,7 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.G:
-                if (green > blue + 0x37 && green > red + 0x37) { //and green greener than red
+                if (green > blue + 0x20 && green > red + 0x37) { //and green greener than red
                     return true;
                 }
                 break;
