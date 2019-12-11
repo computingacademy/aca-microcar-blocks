@@ -23,7 +23,7 @@ enum ColorEvent {
     Other = 5
 };
 
-enum CustomColours {
+enum CustomColours { //made by Penny
     //%block=red
     R,
     //%block=green
@@ -284,12 +284,12 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.G:
-                if (red < 0x90 && green > 0xA0 && green > red + 0x30) { //and green greener than red
+                if (green > blue + 0x37 && green > red + 0x37) { //and green greener than red
                     return true;
                 }
                 break;
             case CustomColours.B:
-                if (red < 0x80 && green < 0x80 && blue > 0x80) {
+                if (blue > red + 0x37 && blue > green + 0x37) { //blue bluer than red and green
                     return true;
                 }
                 break;

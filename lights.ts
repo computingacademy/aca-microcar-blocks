@@ -40,7 +40,7 @@ namespace lights {
     export function showAny(colour: NewoPixelColors) {
         strip.showColor(colour)
     }
-    
+
     /**
     * Make explosion movement and sound
     * rattle motors, make noise on speaker, show pretty picture on face
@@ -130,17 +130,17 @@ namespace lights {
             . # . . .
             . . # . .
             `)
-        for (let i=0;i<6;i++){
+        for (let i = 0; i < 6; i++) {
             BitKit.setMotormoduleSpeed(0, 255)
             basic.pause(500)
             BitKit.setMotormoduleSpeed(255, 0)
             basic.pause(500)
-            BitKit.setMotormoduleSpeed(0,-255)
+            BitKit.setMotormoduleSpeed(0, -255)
             basic.pause(500)
-            BitKit.setMotormoduleSpeed(-255,0)
+            BitKit.setMotormoduleSpeed(-255, 0)
             basic.pause(500)
         }
-        BitKit.setMotormoduleSpeed(0,0)
+        BitKit.setMotormoduleSpeed(0, 0)
         basic.clearScreen()
         clearAll()
     }
