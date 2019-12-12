@@ -291,12 +291,12 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.B:
-                if (blue > red + 0x37 && Math.abs(blue-green) < 0x10) { //blue bluer than red, green fires high
+                if (blue > red + 0x37 && Math.abs(blue - green) < 0x10) { //blue bluer than red, green fires high
                     return true;
                 }
                 break;
             case CustomColours.P:
-                if (red > green + 0x25 && blue > green + 0x30){ // both red and blue more than green by a bit
+                if (red > green + 0x25 && blue > green + 0x30) { // both red and blue more than green by a bit
                     return true;
                 }
                 break;

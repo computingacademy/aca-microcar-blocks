@@ -112,6 +112,33 @@ namespace lights {
         basic.clearScreen()
     }
 
+    /**
+     * Copy Colour
+     * mimic the colour of the ground under the bot.
+     * eg. see red, show red, see blue, show blue
+     * 
+     */
+    //% weight=50
+    //% block="copy colour"
+    //% group="Actions"
+    export function copycolour() {
+        if (BitKit.seeCustom(CustomColours.R)) {
+            strip.showColor(NewoPixelColors.Red)
+        }
+        else if (BitKit.seeCustom(CustomColours.G)) {
+            strip.showColor(NewoPixelColors.Green)
+        }
+        else if (BitKit.seeCustom(CustomColours.B)) {
+            strip.showColor(NewoPixelColors.Blue)
+        }
+        else if (BitKit.seeCustom(CustomColours.P)) {
+            strip.showColor(NewoPixelColors.Purple)
+        }
+        else if (BitKit.seeCustom(CustomColours.W)) {
+            strip.showColor(NewoPixelColors.White)
+        }      
+    }
+
 
     /**
     * Waddle left
