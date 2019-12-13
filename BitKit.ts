@@ -33,7 +33,9 @@ enum CustomColours { //made by Penny
     //%block=white
     W,
     //%block=purple
-    P
+    P,
+    //%block=black
+    Bl
 };
 
 enum LinerEvent {
@@ -291,8 +293,8 @@ namespace BitKit {
                 }
                 break;
             case CustomColours.B:
-                if (blue > red + 0x37 && Math.abs(blue - green) < 0x10) { //blue bluer than red, green fires high
-                    return true;
+                if (blue > red + 0x3B && Math.abs(blue - green) < 0x10) { //blue bluer than red, green fires high
+                    return true; //increased b vs r diff from 37 to 3B
                 }
                 break;
             case CustomColours.P:
@@ -300,6 +302,10 @@ namespace BitKit {
                     return true;
                 }
                 break;
+            case CustomColours.Bl:
+                if (red < 0x10 && green < 0x10 && blue < 0x10) {//all low light
+                    return true;
+                }
         }
         return false;
     }
