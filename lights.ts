@@ -112,6 +112,33 @@ namespace lights {
         basic.clearScreen()
     }
 
+    /**
+     * Copy Colour
+     * mimic the colour of the ground under the bot.
+     * eg. see red, show red, see blue, show blue
+     * 
+     */
+    //% weight=50
+    //% block="copy colour"
+    //% group="Actions"
+    export function copycolour() {
+        if (BitKit.seeCustom(CustomColours.R)) {
+            strip.showColor(NewoPixelColors.Red)
+        }
+        else if (BitKit.seeCustom(CustomColours.G)) {
+            strip.showColor(NewoPixelColors.Green)
+        }
+        else if (BitKit.seeCustom(CustomColours.B)) {
+            strip.showColor(NewoPixelColors.Blue)
+        }
+        else if (BitKit.seeCustom(CustomColours.P)) {
+            strip.showColor(NewoPixelColors.Purple)
+        }
+        else if (BitKit.seeCustom(CustomColours.W)) {
+            strip.showColor(NewoPixelColors.White)
+        }      
+    }
+
 
     /**
     * Waddle left
@@ -119,7 +146,7 @@ namespace lights {
     * As a block, gives pseudo holonomic movement
     */
     //% advanced = true
-    //% block = "waddleLeft"
+    //% block = "waddle left"
     //% weight= 50
     export function waddleLeft() {
         strip.showColor(newopixel.colors(NewoPixelColors.Green))
@@ -143,5 +170,33 @@ namespace lights {
         BitKit.setMotormoduleSpeed(0, 0)
         basic.clearScreen()
         clearAll()
+    }
+
+    /**
+     * Dump Truck
+     * Dump the trucks load into the conveyer
+     * Rain material down LED face, rumble motors
+     */
+    //% advanced = true
+    //% block = "dump truck"
+    //% weight = 45
+    export function dumpTruck(){
+        strip.showColor(newopixel.colors(NewoPixelColors.Orange))
+        
+        //rumble
+        for (let index = 0; index <= 5; index++) {
+            led.plot(2, 2)
+            BitKit.setMotormoduleSpeed(-255, 255)
+            strip.showColor(newopixel.colors(NewoPixelColors.Red))
+            basic.pause((index) * 40)
+            strip.showColor(newopixel.colors(NewoPixelColors.Orange))
+            basic.pause((index) * 40)
+            basic.clearScreen()
+            BitKit.setMotormoduleSpeed(255, -255)
+            strip.showColor(newopixel.colors(NewoPixelColors.Yellow))
+            basic.pause((index) * 40)
+            strip.showColor(newopixel.colors(NewoPixelColors.White))
+            basic.pause((index) * 40)
+        }
     }
 }
