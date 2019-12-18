@@ -184,8 +184,8 @@ namespace lights {
     export function dumpTruck() {
         strip.showColor(newopixel.colors(NewoPixelColors.Orange))
         //two beeps
-        for (let b=0;b<2;b++){
-            music.playTone(Note.C, 700)
+        for (let b = 0; b < 2; b++) {
+            music.playTone(Note.GSharp5, 700)
             basic.pause(700)
         }
         basic.pause(700)
@@ -193,6 +193,7 @@ namespace lights {
         for (let lo = 0; lo < 4; lo++) {
             strip.showColor(newopixel.colors(NewoPixelColors.Red))
             for (let index = 0; index < 4; index++) {
+                basic.clearScreen()
                 led.plot(2, index)
                 BitKit.setMotormoduleSpeed(-255, 255)
                 basic.pause(80)
@@ -201,6 +202,7 @@ namespace lights {
             }
             lights.clearAll()
             for (let index = 0; index < 4; index++) {
+                basic.clearScreen()
                 led.plot(3, index)
                 BitKit.setMotormoduleSpeed(-255, 255)
                 basic.pause(80)
@@ -208,11 +210,5 @@ namespace lights {
                 basic.pause(80)
             }
         }
-        //two beeps
-        for (let b = 0; b < 2; b++) {
-            music.playTone(Note.C, 700)
-            basic.pause(700)
-        }
-        basic.pause(700)
     }
 }
