@@ -184,8 +184,8 @@ namespace lights {
     export function dumpTruck() {
         strip.showColor(newopixel.colors(NewoPixelColors.Orange))
         //two beeps
-        for (let b=0;b<2;b++){
-            music.playTone(Note.C, 700)
+        for (let b = 0; b < 2; b++) {
+            music.playTone(Note.GSharp5, 700)
             basic.pause(700)
         }
         basic.pause(700)
@@ -210,7 +210,7 @@ namespace lights {
         }
         //two beeps
         for (let b = 0; b < 2; b++) {
-            music.playTone(Note.C, 700)
+            music.playTone(Note.GSharp5, 700)
             basic.pause(700)
         }
         basic.pause(700)
