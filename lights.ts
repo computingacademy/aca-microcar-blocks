@@ -119,7 +119,6 @@ namespace lights {
      * 
      */
     //% weight=50
-    //% block="copy colour"
     //% group="Actions"
     export function copycolour() {
         if (BitKit.seeCustom(CustomColours.R)) {
@@ -136,7 +135,7 @@ namespace lights {
         }
         else if (BitKit.seeCustom(CustomColours.W)) {
             strip.showColor(NewoPixelColors.White)
-        }      
+        }
     }
 
 
@@ -164,6 +163,8 @@ namespace lights {
             basic.pause(500)
             BitKit.setMotormoduleSpeed(0, -255)
             basic.pause(500)
+
+            music.playTone(Note.C, 0)
             BitKit.setMotormoduleSpeed(-255, 0)
             basic.pause(500)
         }
@@ -180,23 +181,38 @@ namespace lights {
     //% advanced = true
     //% block = "dump truck"
     //% weight = 45
-    export function dumpTruck(){
+    export function dumpTruck() {
         strip.showColor(newopixel.colors(NewoPixelColors.Orange))
-        
-        //rumble
-        for (let index = 0; index <= 5; index++) {
-            led.plot(2, 2)
-            BitKit.setMotormoduleSpeed(-255, 255)
-            strip.showColor(newopixel.colors(NewoPixelColors.Red))
-            basic.pause((index) * 40)
-            strip.showColor(newopixel.colors(NewoPixelColors.Orange))
-            basic.pause((index) * 40)
-            basic.clearScreen()
-            BitKit.setMotormoduleSpeed(255, -255)
-            strip.showColor(newopixel.colors(NewoPixelColors.Yellow))
-            basic.pause((index) * 40)
-            strip.showColor(newopixel.colors(NewoPixelColors.White))
-            basic.pause((index) * 40)
+        //two beeps
+        for (let b=0;b<2;b++){
+            music.playTone(Note.C, 700)
+            basic.pause(700)
         }
+        basic.pause(700)
+        //rumble
+        for (let lo = 0; lo < 4; lo++) {
+            strip.showColor(newopixel.colors(NewoPixelColors.Red))
+            for (let index = 0; index < 4; index++) {
+                led.plot(2, index)
+                BitKit.setMotormoduleSpeed(-255, 255)
+                basic.pause(80)
+                BitKit.setMotormoduleSpeed(255, -255)
+                basic.pause(80)
+            }
+            lights.clearAll()
+            for (let index = 0; index < 4; index++) {
+                led.plot(3, index)
+                BitKit.setMotormoduleSpeed(-255, 255)
+                basic.pause(80)
+                BitKit.setMotormoduleSpeed(255, -255)
+                basic.pause(80)
+            }
+        }
+        //two beeps
+        for (let b = 0; b < 2; b++) {
+            music.playTone(Note.C, 700)
+            basic.pause(700)
+        }
+        basic.pause(700)
     }
 }
