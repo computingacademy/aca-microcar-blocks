@@ -119,7 +119,7 @@ namespace lights {
      * 
      */
     //% weight=50
-    //% group="Actions"
+    //% advanced = true 
     export function copycolour() {
         if (BitKit.seeCustom(CustomColours.R)) {
             strip.showColor(NewoPixelColors.Red)
