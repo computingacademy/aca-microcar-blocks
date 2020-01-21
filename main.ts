@@ -37,7 +37,7 @@ namespace calibrate {
 //% weight=48 color=#FF6523 icon="\uf009" block="Grid"
 //% groups="['Setup', 'Grid']"
 namespace grid {
-    let rcal = 90;
+    let rcal = 1000;
     let fcal = 0;
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
