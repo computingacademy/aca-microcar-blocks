@@ -17,9 +17,8 @@ namespace lights {
     }
 
     /**
-    * Clear red
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
+    * Clear lights:
+    * Stop shining the micro:car lights
     */
     //% weight=90
     //% block="clear lights"
@@ -30,9 +29,8 @@ namespace lights {
     }
 
     /**
-    * Show any
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
+    * Show any colour:
+    * Shine any colour with the micro:car lights
     */
     //% weight=100
     //% block="show |%colour"
@@ -42,7 +40,20 @@ namespace lights {
     }
 
     /**
-    * Make explosion movement and sound
+    * Flash any colour
+    */
+    //% weight=100
+    //% block="flash |%colour"
+    //% group="Colours"
+    export function flashAny(colour: NewoPixelColors) {
+        strip.showColor(colour)
+        basic.pause(500)
+        strip.clear()
+        strip.show()
+    }
+
+    /**
+    * Make explosion movement and sound:
     * rattle motors, make noise on speaker, show pretty picture on face
     */
     //% weight=40
@@ -70,9 +81,8 @@ namespace lights {
     }
 
     /**
-    * Red light on coral
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
+    * Show light on coral:
+    * Shine the micro:car light any colour if there is coral underneath the bot.
     */
     //% weight=60
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
@@ -89,9 +99,8 @@ namespace lights {
     }
 
     /**
-    * Red light and sound on coral
-    * mimic the colour of the ground under the bot.
-    * eg. see red, show red, see blue, show blue
+    * Show light and sound on coral:
+    * If there is coral, show a light and display a sound
     */
     //% weight=50
     //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
@@ -113,14 +122,14 @@ namespace lights {
     }
 
     /**
-     * Copy Colour
-     * mimic the colour of the ground under the bot.
-     * eg. see red, show red, see blue, show blue
-     * 
-     */
+    * Copy Colour
+    * mimic the colour of the ground under the bot.
+    * eg. see red, show red, see blue, show blue
+    */
+    //% advanced = true   
+    //% block = "copy colour"
     //% weight=50
-    //% advanced = true 
-    export function copycolour() {
+    export function copyColour() {
         if (BitKit.seeCustom(CustomColours.R)) {
             strip.showColor(NewoPixelColors.Red)
         }
@@ -136,13 +145,17 @@ namespace lights {
         else if (BitKit.seeCustom(CustomColours.W)) {
             strip.showColor(NewoPixelColors.White)
         }
+        else {
+            strip.clear()
+            strip.show()
+        }
     }
 
 
     /**
-    * Waddle left
-    * Give kids something to explore other than music tab.
-    * As a block, gives pseudo holonomic movement
+    * Waddle left:
+    * Move the microcar left without moving fowards and backwards.
+    * Pseudo holonomic movement
     */
     //% advanced = true
     //% block = "waddle left"
@@ -163,8 +176,6 @@ namespace lights {
             basic.pause(500)
             BitKit.setMotormoduleSpeed(0, -255)
             basic.pause(500)
-
-            music.playTone(Note.C, 0)
             BitKit.setMotormoduleSpeed(-255, 0)
             basic.pause(500)
         }
@@ -174,9 +185,9 @@ namespace lights {
     }
 
     /**
-     * Dump Truck
-     * Dump the trucks load into the conveyer
-     * Rain material down LED face, rumble motors
+     * Dump Truck:
+     * Dump the trucks load into the conveyer.
+     * Rains material down LED face, rumbles motors
      */
     //% advanced = true
     //% block = "dump truck"
