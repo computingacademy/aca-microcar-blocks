@@ -231,6 +231,7 @@ namespace BitKit {
     //% weight=98
     //% group="Line Sensor"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
+        basic.pause(1) //give event a chance to trigger
         let eventValue = event;
         if (!initLiner) onLinePosition(event, () => { });
         if (lastLiner == eventValue) return true;
@@ -244,6 +245,7 @@ namespace BitKit {
     //% weight=0
     //% group="Colour Sensor"
     export function wasColorTriggered(event: ColorEvent): boolean {
+        basic.pause(1) //give event a chance to trigger
         let eventValue = event;
         if (driver.addrBuffer[SensorType.Liner] == 0) onColor(event, () => { });
         if (driver.lastStatus[SensorType.Liner] == eventValue) return true;
