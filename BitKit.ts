@@ -95,7 +95,7 @@ enum MotionTpye {
  * Extension blocks
  */
 //% weight=48 color=#4646DF icon="\uf018" block="Microcar"
-//% groups="['Colour Sensor', 'Line Follower', 'Car', 'Event Line Follower', 'others']"
+//% groups="['Colour Sensor', 'Line Sensor', 'Car', 'Event Line Follower', 'others']"
 namespace BitKit {
 
     /**
@@ -229,7 +229,7 @@ namespace BitKit {
      */
     //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
     //% weight=98
-    //% group="Line Follower"
+    //% group="Line Sensor"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
         let eventValue = event;
         if (!initLiner) onLinePosition(event, () => { });
