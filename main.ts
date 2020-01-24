@@ -31,6 +31,8 @@ namespace calibrate {
     }
 }
 
+//dummy change for commit
+
 /**
  * Grid Blocks
  */
@@ -42,7 +44,6 @@ namespace grid {
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: newopixel.Strip = null //make strip
-
     /**
     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
     * no input
