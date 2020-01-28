@@ -193,6 +193,7 @@ namespace lights {
     //% block = "dump truck"
     //% weight = 45
     export function dumpTruck() {
+        BitKit.stopMotormodule() //stop before dumping material
         strip.showColor(newopixel.colors(NewoPixelColors.Orange))
         //two beeps
         for (let b = 0; b < 2; b++) {
@@ -221,5 +222,6 @@ namespace lights {
                 basic.pause(80)
             }
         }
+        BitKit.stopMotormodule()
     }
 }

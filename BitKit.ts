@@ -293,7 +293,7 @@ namespace BitKit {
         h *= 60
         if (h < 0) h += 360 //fix wrap around
 
-        if (s > 0.7 && l > 0.3 && l < 0.8) { //don't bother if it's too grey or black
+        if (s > 0.7 && l > 0.2 && l < 0.85) { //don't bother if it's too grey or black
             switch (checkCol) {
                 case CustomColours.R:
                     if (h > 350 || h < 17) {
@@ -301,7 +301,7 @@ namespace BitKit {
                     }
                     return false;
                 case CustomColours.G:
-                    if (h > 120 && h < 160) {
+                    if (h > 100 && h < 160) {
                         return true;
                     }
                     return false;
@@ -317,12 +317,12 @@ namespace BitKit {
                     return false;
             }
         }
-        //separate bit for black    
-        if (checkCol == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
-            return true;
-        }
         //separate bit for white
         if (checkCol == CustomColours.W && col > 16759431) { //almost white (FFBA87), might need to lower Rval
+            return true;
+        }
+        //separate bit for black    
+        if (checkCol == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
             return true;
         }
         return false;
