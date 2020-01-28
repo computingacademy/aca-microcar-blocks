@@ -245,7 +245,6 @@ namespace BitKit {
     //% weight=0
     //% group="Colour Sensor"
     export function wasColorTriggered(event: ColorEvent): boolean {
-        basic.pause(1) //give event a chance to trigger
         let eventValue = event;
         if (driver.addrBuffer[SensorType.Liner] == 0) onColor(event, () => { });
         if (driver.lastStatus[SensorType.Liner] == eventValue) return true;
@@ -278,6 +277,7 @@ namespace BitKit {
         let g = (col & 0xFF00) >>> 8
         let b = col & 0xFF
 
+        basic.pause(1)
         //adapted from https://gist.github.com/vahidk/05184faf3d92a0aa1b46aeaa93b07786
         r /= 255; g /= 255; b /= 255;
         let max = Math.max(Math.max(r, g), b);
@@ -293,25 +293,20 @@ namespace BitKit {
         h *= 60
         if (h < 0) h += 360 //fix wrap around
 
-        if (s > 0.3 && l > 0.3) { //don't bother if it's too grey or black
+        if (s > 0.7 && l > 0.3 && l < 0.8) { //don't bother if it's too grey or black
             switch (checkCol) {
-                case CustomColours.W:
-                    if (col > 16759431) { //almost white (FFBA87), might need to lower Rval
-                        return true;
-                    }
-                    return false;
                 case CustomColours.R:
                     if (h > 350 || h < 17) {
                         return true;
                     }
                     return false;
                 case CustomColours.G:
-                    if (h > 74 && h < 152) {
+                    if (h > 120 && h < 160) {
                         return true;
                     }
                     return false;
                 case CustomColours.B:
-                    if (h > 60 && h < 265) { //blue bluer than red, green fires high
+                    if (h > 160 && h < 265) { //blue bluer than red, green fires high
                         return true;
                     }
                     return false;
@@ -323,10 +318,13 @@ namespace BitKit {
             }
         }
         //separate bit for black    
-        if (CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
+        if (checkCol == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
             return true;
         }
-        return false
+        //separate bit for white
+        if (checkCol == CustomColours.W && col > 16759431) { //almost white (FFBA87), might need to lower Rval
+            return true;
+        }
         return false;
     }
 }
