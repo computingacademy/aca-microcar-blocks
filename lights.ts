@@ -103,7 +103,6 @@ namespace lights {
     * If there is coral, show a light and display a sound
     */
     //% weight=50
-    //% blockId=if_there_is_coral_and block="if there is coral, then show |%colour and play sound"
     //% group="Actions"
     export function IfThereIsCoralAnd(colour: NewoPixelColors) {
         let flag = 1
