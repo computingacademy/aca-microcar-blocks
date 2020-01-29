@@ -203,24 +203,35 @@ namespace lights {
         //rumble
         for (let lo = 0; lo < 4; lo++) {
             strip.showColor(newopixel.colors(NewoPixelColors.Red))
-            for (let index = 0; index < 4; index++) {
+            for (let index = 0; index < 5; index++) {
                 basic.clearScreen()
-                led.plot(2, index)
+                led.plot(Math.randomRange(0, 4), (index - 3) % 5)
+                led.plot(Math.randomRange(0, 4), index)
+                led.plot(Math.randomRange(0, 4), (index - 1) % 5)
+                led.plot(0, (index - 1) % 5)
+                led.plot(3, (index - 4) % 5)
                 BitKit.setMotormoduleSpeed(-255, 255)
                 basic.pause(80)
                 BitKit.setMotormoduleSpeed(255, -255)
-                basic.pause(80)
+                basic.pause(80 - 0.4*grid.fcal)
             }
             lights.clearAll()
-            for (let index = 0; index < 4; index++) {
+            for (let index = 0; index < 5; index++) {
                 basic.clearScreen()
-                led.plot(3, index)
+                led.plot(Math.randomRange(0, 4), (index - 3) % 5)
+                led.plot(Math.randomRange(0, 4), (index - 1) % 5)
+                led.plot(Math.randomRange(0, 4), (index) % 5)
+                led.plot(2, (index - 1) % 5)
+                led.plot(0, (index - 2) % 5)
+                led.plot(4, (index - 4) % 5)
                 BitKit.setMotormoduleSpeed(-255, 255)
                 basic.pause(80)
                 BitKit.setMotormoduleSpeed(255, -255)
-                basic.pause(80)
+                basic.pause(80 - 0.4 * grid.fcal)
             }
         }
         BitKit.stopMotormodule()
+        basic.pause(1000)
+        basic.clearScreen()
     }
 }

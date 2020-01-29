@@ -40,7 +40,7 @@ namespace calibrate {
 //% groups="['Setup', 'Grid']"
 namespace grid {
     let rcal = 1000;
-    let fcal = 0;
+    export let fcal = 0;
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: newopixel.Strip = null //make strip
