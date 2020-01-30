@@ -5,8 +5,7 @@
 //% groups="['Calibration', 'Setup']"
 namespace calibrate {
     /**
-     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
-     * no input
+     * Move the micro:car forwards for 7 seconds so we can measure and see how straight it went
      */
     //% weight=96
     //% block="forward calibrate"
@@ -18,8 +17,7 @@ namespace calibrate {
     }
 
     /**
-    * Rotate the micro:car for 5 seconds then measure how far it got
-    * no input
+    * Rotate the micro:car for 10 seconds so we can measure what angle it rotated to
     */
     //% weight=96
     //% block="rotation calibrate"
@@ -31,7 +29,7 @@ namespace calibrate {
     }
 }
 
-//dummy change for commit
+//dummy change for commit x2
 
 /**
  * Grid Blocks
@@ -44,24 +42,23 @@ namespace grid {
     let flcal = 0; //forward left calibrate
     let frcal = 0; //forward right calibrate
     let strip: newopixel.Strip = null //make strip
+    let bonus = 0
     /**
-    * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
-    * no input
+    * Move the micro:car forwards one grid step
     */
     //% weight=96
     //% block="forward one step"
     //% group="Grid"
     export function forward() {
         BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2250 + 10 * fcal) //add extra distance for over calibrated robots
-        //basic.pause(2250 + 2 * x ^ 2 + bonus); //needs to be different for each robot. Currently setup for Lewis
+        basic.pause(2250 + 10 * Math.abs(fcal) + bonus) //add extra distance for over calibrated robots (10*fcal) 
+        //and bonus distance option if slowcar is called
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
     }
 
     /**
-    * Turn Left
-    * no input
+    * Turn Left (90 degrees with calibration)
     */
     //% weight=96
     //% block="turn left"
@@ -75,8 +72,7 @@ namespace grid {
     }
 
     /**
-    * Turn Right
-    * no input
+    * Turn Right (90 degrees with calibration)
     */
     //% weight=96
     //% block="turn right"
@@ -89,8 +85,7 @@ namespace grid {
     }
 
     /**
-    * Calibration setup
-    * two inputs
+    * Enter your calibration here: the forward number, then the rotation number.
     */
     //% weight=96
     //% block="setup f:|%fcal r:|%rcal"
@@ -113,15 +108,14 @@ namespace grid {
         //x = Math.abs(flcal + frcal)
     }
     /**
-     * Short
-     * Compensate for the microcar running too short by making it run further
+     * Makes the car move forwards for an extra 250ms when 'forward one step' is called.
      */
     //% weight=70
     //% advanced = true
     //% block="slow car: |%istrue"
     export function slowcar(istrue: boolean) {
         if (istrue) {
-            fcal += 100 //make the car run further
+            bonus += 250 //make the car run further
         }
     }
 }

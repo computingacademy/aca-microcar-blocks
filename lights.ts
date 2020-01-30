@@ -54,7 +54,7 @@ namespace lights {
 
     /**
     * Make explosion movement and sound:
-    * rattle motors, make noise on speaker, show pretty picture on face
+    * rattle motors, make noise on speaker, show a picture
     */
     //% weight=40
     //% block="explode"
@@ -62,6 +62,7 @@ namespace lights {
     //% advanced=true  
     export function explode() {
         let timer = 5
+        let t = 60
         for (let index = 0; index <= timer; index++) {
             led.plot(2, 2)
             BitKit.setMotormoduleSpeed(-255, 255)
@@ -77,12 +78,85 @@ namespace lights {
             basic.pause((timer - index) * 40)
         }
         BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(100)
         music.playTone(988, 100);
+        //fireworks animation
+
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . . # . .
+            . . . . .
+            . . . . .
+            `, t)
+        basic.showLeds(`
+            . . . . .
+            . . # . .
+            . # . # .
+            . . # . .
+            . . . . .
+            `, t)
+        basic.showLeds(`
+            . . . . .
+            . . # . .
+            . # # # .
+            . . # . .
+            . . . . .
+            `, t)
+        basic.showLeds(`
+            . . . . .
+            . # # # .
+            . # # # .
+            . # # # .
+            . . . . .
+            `, t)
+        basic.showLeds(`
+            . . # . .
+            . # . # .
+            # . # . #
+            . # . # .
+            . . # . .
+            `, t)
+        basic.showLeds(`
+            . # . # .
+            # . # . #
+            . # # # .
+            # . # . #
+            . # . # .
+            `, t)
+        basic.showLeds(`
+            . # . # .
+            # # . # #
+            . . . . .
+            # # . # #
+            . # . # .
+            `, t)
+        basic.showLeds(`
+            # # . # #
+            # . . . #
+            . . . . .
+            # . . . #
+            # # . # #
+            `, t)
+        basic.showLeds(`
+            # . . . #
+            . . . . .
+            . . . . .
+            . . . . .
+            # . . . #
+            `, t)
+        basic.showLeds(`
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            `, t)
+
     }
 
     /**
-    * Show light on coral:
-    * Shine the micro:car light any colour if there is coral underneath the bot.
+    * Shine the light a colour if there is coral underneath the micro:car.
     */
     //% weight=60
     //% blockId=if_there_is_coral block="if there is coral, then show |%colour"
@@ -154,7 +228,6 @@ namespace lights {
     /**
     * Waddle left:
     * Move the microcar left without moving fowards and backwards.
-    * Pseudo holonomic movement
     */
     //% advanced = true
     //% block = "waddle left"
@@ -185,8 +258,8 @@ namespace lights {
 
     /**
      * Dump Truck:
-     * Dump the trucks load into the conveyer.
-     * Rains material down LED face, rumbles motors
+     * Dump the trucks load onto the ground
+     * Rains material down LED face, rumbles motors.
      */
     //% advanced = true
     //% block = "dump truck"
@@ -213,7 +286,7 @@ namespace lights {
                 BitKit.setMotormoduleSpeed(-255, 255)
                 basic.pause(80)
                 BitKit.setMotormoduleSpeed(255, -255)
-                basic.pause(80 - 0.4*grid.fcal)
+                basic.pause(80 - 0.4 * grid.fcal)
             }
             lights.clearAll()
             for (let index = 0; index < 5; index++) {

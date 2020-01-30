@@ -265,8 +265,7 @@ namespace BitKit {
     }
 
     /**
-     * See if colour sensor detected a specific custom colour
-     * InnovationShowcase check dummy commit
+     * See if the colour sensor detected a colour
      */
     //%blockId=i2c block="see colour |%checkCol|"
     //% group="Colour Sensor"
