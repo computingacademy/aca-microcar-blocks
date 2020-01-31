@@ -5,8 +5,7 @@
 //% groups="['Calibration', 'Setup']"
 namespace calibrate {
     /**
-     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
-     * no input
+     * Move the micro:car forwards for 7 seconds so we can measure and see how straight it went
      */
     //% weight=96
     //% block="forward calibrate"
@@ -18,8 +17,7 @@ namespace calibrate {
     }
 
     /**
-    * Rotate the micro:car for 5 seconds then measure how far it got
-    * no input
+    * Rotate the micro:car for 10 seconds so we can measure what angle it rotated to
     */
     //% weight=96
     //% block="rotation calibrate"
