@@ -300,7 +300,7 @@ namespace BitKit {
                     }
                     return false;
                 case CustomColours.G:
-                    if (h > 100 && h < 160) {
+                    if (h > 80 && h < 160) {
                         return true;
                     }
                     return false;
