@@ -58,6 +58,20 @@ namespace grid {
     }
 
     /**
+    * Move the micro:car forward a bit for debugging
+    */
+    //% weight=96
+    //% block="forward a bit"
+    //% group="Grid"
+    export function forwardABit() {
+        BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
+        basic.pause(900 + 10 * Math.abs(fcal) + bonus) //add extra distance for over calibrated robots (10*fcal) 
+        //and bonus distance option if slowcar is called
+        BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
+    }
+
+    /**
     * Turn Left (90 degrees with calibration)
     */
     //% weight=96
@@ -67,6 +81,24 @@ namespace grid {
         BitKit.setMotormoduleSpeed(-255, 255);
         //basic.pause(867 + 9 * x + bonus);
         basic.pause(rcal)
+        BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
+    }
+
+    /**
+    * Turn Right until line
+    */
+    //% weight=96
+    //% block="turn right until line"
+    //% group="Grid"
+    export function turnRightUntilLine() {
+        BitKit.setMotormoduleSpeed(100, -100);
+        driver.i2cSendByte(SensorType.Liner, 0x02);
+        let event = driver.i2cReceiveByte(SensorType.Liner);
+        while (event != 1) {
+            driver.i2cSendByte(SensorType.Liner, 0x02);
+            event = driver.i2cReceiveByte(SensorType.Liner);
+        }
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
     }

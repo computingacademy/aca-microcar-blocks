@@ -107,6 +107,7 @@ namespace BitKit {
     //% weight=100
     //% group="Car"
     export function setMotormoduleAction(direction: DirectionTpye, speed: SpeedTpye) {
+        basic.pause(1);
         let data: Buffer = pins.createBuffer(5);
         data[0] = 0x01;
         if (direction == DirectionTpye.Forward) {
@@ -236,6 +237,28 @@ namespace BitKit {
         if (!initLiner) onLinePosition(event, () => { });
         if (lastLiner == eventValue) return true;
         return false;
+    }
+
+    /**
+     * Iff all sensors are triggered at once
+     */
+    //% block="bigDot"
+    //% weight=99
+    //% group="Line Sensor"
+    export function wasAllLinePosTriggered(): boolean {
+        basic.pause(1) //give event a chance to trigger
+        driver.i2cSendByte(SensorType.Liner, 0x02);
+        let e = driver.i2cReceiveByte(SensorType.Liner);
+        //basic.showNumber(e)
+        if (e == 2) return true;
+        return false
+    }
+
+    export function lineFollower() {
+        basic.pause(1) //give event a chance to trigger when playing with other libraries
+        driver.i2cSendByte(SensorType.Liner, 0x02);
+        let e = driver.i2cReceiveByte(SensorType.Liner);
+        basic.showNumber(e)
     }
 
     /**
