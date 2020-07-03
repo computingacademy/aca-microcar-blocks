@@ -93,6 +93,7 @@ namespace grid {
     //% group="Grid"
     export function turnRightUntilLine() {
         BitKit.setMotormoduleSpeed(100, -100);
+        basic.pause(100);
         driver.i2cSendByte(SensorType.Liner, 0x02);
         let event = driver.i2cReceiveByte(SensorType.Liner);
         while (event != 1) {
