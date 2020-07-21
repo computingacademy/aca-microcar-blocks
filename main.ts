@@ -68,6 +68,7 @@ namespace grid {
     //% weight=96
     //% block="turn |%direction| until line"
     //% group="Grid"
+    //% advanced = true
     export function turnUntilLine(direction: LeftorRight) {
         let rw, lw, rw2, lw2 = 0;
         if (direction == 2){
@@ -103,6 +104,7 @@ namespace grid {
     //% weight=95
     //% block="follow line"
     //% group="Grid"
+    //% advanced=true
     export function line_follow () {
         //blindly forward a bit to start
         BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
