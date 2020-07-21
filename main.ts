@@ -1,3 +1,8 @@
+enum LeftorRight {
+    Left = 1,
+    Right = 2
+};
+    
 /**
  * Calibration blocks
  */
@@ -58,17 +63,65 @@ namespace grid {
     }
 
     /**
-    * Move the micro:car forward a bit for debugging
+    * Turn Right/Left until line
     */
     //% weight=96
-    //% block="forward a bit"
+    //% block="turn |%direction| until line"
     //% group="Grid"
-    export function forwardABit() {
-        BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(900 + 10 * Math.abs(fcal) + bonus) //add extra distance for over calibrated robots (10*fcal) 
-        //and bonus distance option if slowcar is called
+    export function turnUntilLine(direction: LeftorRight) {
+        let rw, lw, rw2, lw2 = 0;
+        if (direction == 2){
+            lw = 200;
+            rw = 75;
+            lw2 = 200;
+            rw2 = 0;
+        }
+        else if (direction == 1){
+            lw = 75;
+            rw = 200;
+            lw2 = 0;
+            rw2 = 200;
+        }
+        BitKit.setMotormoduleSpeed(lw, rw);
+        basic.pause(200);
+        driver.i2cSendByte(SensorType.Liner, 0x02);
+        let event = driver.i2cReceiveByte(SensorType.Liner);
+        while (event != LinerEvent.Middle) {
+            driver.i2cSendByte(SensorType.Liner, 0x02);
+            event = driver.i2cReceiveByte(SensorType.Liner);
+        }
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
+        BitKit.setMotormoduleSpeed(lw2, rw2); //and go a bit more
+        basic.pause(700)
+        BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
+    }
+    /**
+    * Follow line
+    */
+    //% weight=95
+    //% block="follow line"
+    //% group="Grid"
+    export function line_follow () {
+        //blindly forward a bit to start
+        BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
+        basic.pause(700) //blindy go forward to get past dot
+        while (!(BitKit.wasAllLinePosTriggered())) {
+            if (BitKit.wasLinePositionTriggered(LinerEvent.Middle)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Left)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Left, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Right)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Right, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Rightmost)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Right, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Leftmost)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Left, SpeedTpye.Medium)
+            }
+        }
+        BitKit.stopMotormodule()
+        basic.pause(500)
     }
 
     /**
@@ -81,25 +134,6 @@ namespace grid {
         BitKit.setMotormoduleSpeed(-255, 255);
         //basic.pause(867 + 9 * x + bonus);
         basic.pause(rcal)
-        BitKit.setMotormoduleSpeed(0, 0);
-        basic.pause(600)
-    }
-
-    /**
-    * Turn Right until line
-    */
-    //% weight=96
-    //% block="turn right until line"
-    //% group="Grid"
-    export function turnRightUntilLine() {
-        BitKit.setMotormoduleSpeed(100, -100);
-        basic.pause(100);
-        driver.i2cSendByte(SensorType.Liner, 0x02);
-        let event = driver.i2cReceiveByte(SensorType.Liner);
-        while (event != 1) {
-            driver.i2cSendByte(SensorType.Liner, 0x02);
-            event = driver.i2cReceiveByte(SensorType.Liner);
-        }
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
     }

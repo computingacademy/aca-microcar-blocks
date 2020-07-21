@@ -240,25 +240,18 @@ namespace BitKit {
     }
 
     /**
-     * Iff all sensors are triggered at once
+     * If line sensor is lost
      */
-    //% block="bigDot"
+ 
     //% weight=99
     //% group="Line Sensor"
     export function wasAllLinePosTriggered(): boolean {
         basic.pause(1) //give event a chance to trigger
-        driver.i2cSendByte(SensorType.Liner, 0x02);
+        driver.i2cSendByte(SensorType.Liner, 0x02); //manually do lost trigger
         let e = driver.i2cReceiveByte(SensorType.Liner);
         //basic.showNumber(e)
         if (e == 2) return true;
         return false
-    }
-
-    export function lineFollower() {
-        basic.pause(1) //give event a chance to trigger when playing with other libraries
-        driver.i2cSendByte(SensorType.Liner, 0x02);
-        let e = driver.i2cReceiveByte(SensorType.Liner);
-        basic.showNumber(e)
     }
 
     /**
