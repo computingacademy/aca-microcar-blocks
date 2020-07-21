@@ -83,7 +83,7 @@ namespace grid {
             rw2 = 200;
         }
         BitKit.setMotormoduleSpeed(lw, rw);
-        basic.pause(200);
+        basic.pause(500);
         driver.i2cSendByte(SensorType.Liner, 0x02);
         let event = driver.i2cReceiveByte(SensorType.Liner);
         while (event != LinerEvent.Middle) {
@@ -92,7 +92,7 @@ namespace grid {
         }
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
-        BitKit.setMotormoduleSpeed(lw2, rw2); //and go a bit more
+        BitKit.setMotormoduleSpeed(lw2, rw2); //and go a bit more to straighten up
         basic.pause(700)
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)

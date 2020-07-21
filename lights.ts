@@ -220,10 +220,10 @@ namespace lights {
         }
         else {
             strip.clear()
-            strip.show()
         }
+        basic.pause(1000)
+        strip.clear()
     }
-
 
     /**
     * Waddle left:
