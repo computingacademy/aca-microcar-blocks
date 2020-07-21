@@ -1,6 +1,6 @@
 {
     "name": "aca-microcar-blocks",
-    "version": "0.0.21",
+    "version": "0.0.22",
     "description": "An ACA extension for the Resources Challenge: Automation",
     "dependencies": {
         "core": "*"
