@@ -58,7 +58,6 @@ namespace grid {
     //% weight=95
     //% block="follow line until dot"
     //% group="Grid"
-    //% advanced=true
     export function line_follow () {
         //blindly forward a bit to start
         BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
