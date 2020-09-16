@@ -308,10 +308,10 @@ namespace BitKit {
         h *= 60
         if (h < 0) h += 360 //fix wrap around
 
-        if (s > 0.7 && l > 0.2 && l < 0.85) { //don't bother if it's too grey or black
+        if (s > 0.7 && l > 0.2 && l < 0.95) { //don't bother if it's too grey or black
             switch (checkCol) {
                 case CustomColours.R:
-                    if (h > 350 || h < 17) {
+                    if (h > 350 || h < 17 && l < 0.85) {
                         return true;
                     }
                     return false;
@@ -321,12 +321,12 @@ namespace BitKit {
                     }
                     return false;
                 case CustomColours.B:
-                    if (h > 160 && h < 265) { //blue bluer than red, green fires high
+                    if (h > 160 && h < 265 && l < 0.85) { //blue bluer than red, green fires high
                         return true;
                     }
                     return false;
                 case CustomColours.P:
-                    if (h > 265 && h < 350) { // both red and blue more than green by a bit
+                    if (h > 265 && h < 350 && l < 0.85) { // both red and blue more than green by a bit
                         return true;
                     }
                     return false;

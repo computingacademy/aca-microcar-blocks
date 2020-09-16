@@ -1,6 +1,7 @@
 enum LeftorRight {
-    Left = 1,
-    Right = 2
+    straight = 3,
+    left = 1,
+    right = 2,
 };
     
 /**
@@ -66,35 +67,40 @@ namespace grid {
     * Turn Right/Left until line
     */
     //% weight=96
-    //% block="turn |%direction| until line"
+    //% block="go |%direction|"
     //% group="Grid"
     //% advanced = true
     export function turnUntilLine(direction: LeftorRight) {
         let rw, lw, rw2, lw2 = 0;
-        if (direction == 2){
+        if (direction == 2){ //right
             lw = 200;
-            rw = 75;
+            rw = 60; //shrunk cos most robots are worse at turning right
             lw2 = 200;
             rw2 = 0;
         }
-        else if (direction == 1){
-            lw = 75;
+        else if (direction == 1){ //left
+            lw = 65;
             rw = 200;
             lw2 = 0;
             rw2 = 200;
         }
-        BitKit.setMotormoduleSpeed(lw, rw);
-        basic.pause(500);
-        driver.i2cSendByte(SensorType.Liner, 0x02);
-        let event = driver.i2cReceiveByte(SensorType.Liner);
-        while (event != LinerEvent.Middle) {
+        
+        if (direction !=3){ //if turning
+            
+            BitKit.setMotormoduleSpeed(lw, rw); //move blindly
+            basic.pause(500);
             driver.i2cSendByte(SensorType.Liner, 0x02);
-            event = driver.i2cReceiveByte(SensorType.Liner);
+            let event = driver.i2cReceiveByte(SensorType.Liner); //move until you hit the DAL.DEVICE_PIN_DEFAULT_SERVO_CENTER sensor on line
+            while (event != LinerEvent.Middle) {
+                driver.i2cSendByte(SensorType.Liner, 0x02);
+                event = driver.i2cReceiveByte(SensorType.Liner);
+            }
+
         }
-        BitKit.setMotormoduleSpeed(0, 0);
-        basic.pause(600)
-        BitKit.setMotormoduleSpeed(lw2, rw2); //and go a bit more to straighten up
-        basic.pause(700)
+        else { //if straight
+            BitKit.setMotormoduleSpeed(200,200); //move blindly forwards for a bit
+            basic.pause(900); //upped from 800 to suit gina
+        }
         BitKit.setMotormoduleSpeed(0, 0);
         basic.pause(600)
     }
@@ -102,13 +108,13 @@ namespace grid {
     * Follow line
     */
     //% weight=95
-    //% block="follow line"
+    //% block="follow line until dot"
     //% group="Grid"
     //% advanced=true
     export function line_follow () {
         //blindly forward a bit to start
         BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
-        basic.pause(700) //blindy go forward to get past dot
+        //basic.pause(700) //blindy go forward to get past dot
         while (!(BitKit.wasAllLinePosTriggered())) {
             if (BitKit.wasLinePositionTriggered(LinerEvent.Middle)) {
                 BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
