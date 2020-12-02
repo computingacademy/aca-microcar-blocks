@@ -308,10 +308,10 @@ namespace BitKit {
         h *= 60
         if (h < 0) h += 360 //fix wrap around
 
-        if (s > 0.7 && l > 0.2 && l < 0.95) { //don't bother if it's too grey or black
+        if (s > 0.3 && l > 0.2 && l < 0.95) { //don't bother if it's too grey or black
             switch (colour) {
                 case CustomColours.R:
-                    if (h > 350 || h < 17 && l < 0.85) {
+                    if (h > 350 || h < 17 && l < 0.85 && s > 0.7) {
                         return true;
                     }
                     return false;
