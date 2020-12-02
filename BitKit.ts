@@ -228,13 +228,13 @@ namespace BitKit {
      * Check if the line follower can see a line at a position.
      * @param event of liner device
      */
-    //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
+    //% blockId=sensor_is_liner_event_generate block="see line at|%position|"
     //% weight=98
     //% group="Line Sensor"
-    export function wasLinePositionTriggered(event: LinerEvent): boolean {
+    export function wasLinePositionTriggered(position: LinerEvent): boolean {
         basic.pause(1) //give event a chance to trigger
-        let eventValue = event;
-        if (!initLiner) onLinePosition(event, () => { });
+        let eventValue = position;
+        if (!initLiner) onLinePosition(position, () => { });
         if (lastLiner == eventValue) return true;
         return false;
     }
@@ -283,9 +283,9 @@ namespace BitKit {
     /**
      * Check if the colour sensor detected a colour
      */
-    //%blockId=i2c block="see colour |%checkCol|"
+    //%blockId=i2c block="see colour |%colour|"
     //% group="Colour Sensor"
-    export function seeCustom(checkCol: CustomColours): boolean {
+    export function seeCustom(colour: CustomColours): boolean {
         //separate colour channels
         let col = getColor()
         let r = col >>> 16
@@ -309,7 +309,7 @@ namespace BitKit {
         if (h < 0) h += 360 //fix wrap around
 
         if (s > 0.7 && l > 0.2 && l < 0.95) { //don't bother if it's too grey or black
-            switch (checkCol) {
+            switch (colour) {
                 case CustomColours.R:
                     if (h > 350 || h < 17 && l < 0.85) {
                         return true;
@@ -333,11 +333,11 @@ namespace BitKit {
             }
         }
         //separate bit for white
-        if (checkCol == CustomColours.W && col > 16759431) { //almost white (FFBA87), might need to lower Rval
+        if (colour == CustomColours.W && col > 16759431) { //almost white (FFBA87), might need to lower Rval
             return true;
         }
         //separate bit for black    
-        if (checkCol == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
+        if (colour == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
             return true;
         }
         return false;
