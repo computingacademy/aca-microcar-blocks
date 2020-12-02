@@ -99,7 +99,7 @@ enum MotionTpye {
 namespace BitKit {
 
     /**
-     * Set the actions and the moving speed of motormodule.
+     * Set the actions and the moving speed of the motormodule.
      * @param direction the direction that want to set.
      * @param speed the speed that want to run.
      */
@@ -160,7 +160,7 @@ namespace BitKit {
     }
 
     /**
-     * Set the speed of motors on motormodule.
+     * Set the speed of the motors.
      * @param left the left speed you want to run.
      * @param right the right speed you want to run.
      */
@@ -225,7 +225,7 @@ namespace BitKit {
     }
 
     /**
-     * See if the line follower recognized the position of the line underneath.
+     * Check if the line follower can see a line at a position.
      * @param event of liner device
      */
     //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
@@ -281,7 +281,7 @@ namespace BitKit {
     }
 
     /**
-     * See if the colour sensor detected a colour
+     * Check if the colour sensor detected a colour
      */
     //%blockId=i2c block="see colour |%checkCol|"
     //% group="Colour Sensor"
