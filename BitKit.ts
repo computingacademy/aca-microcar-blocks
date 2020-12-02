@@ -23,7 +23,7 @@ enum ColorEvent {
     Other = 5
 };
 
-enum CustomColours {
+enum CustomColours { //made by Penny
     //%block=red
     R,
     //%block=green
@@ -31,7 +31,11 @@ enum CustomColours {
     //%block=blue
     B,
     //%block=white
-    W
+    W,
+    //%block=purple
+    P,
+    //%block=black
+    Bl
 };
 
 enum LinerEvent {
@@ -91,7 +95,7 @@ enum MotionTpye {
  * Extension blocks
  */
 //% weight=48 color=#4646DF icon="\uf018" block="Microcar"
-//% groups="['Colour Sensor', 'Line Follower', 'Car', 'Event Line Follower', 'others']"
+//% groups="['Colour Sensor', 'Line Sensor', 'Car', 'Event Line Follower', 'others']"
 namespace BitKit {
 
     /**
@@ -103,6 +107,7 @@ namespace BitKit {
     //% weight=100
     //% group="Car"
     export function setMotormoduleAction(direction: DirectionTpye, speed: SpeedTpye) {
+        basic.pause(1);
         let data: Buffer = pins.createBuffer(5);
         data[0] = 0x01;
         if (direction == DirectionTpye.Forward) {
@@ -225,12 +230,28 @@ namespace BitKit {
      */
     //% blockId=sensor_is_liner_event_generate block="see line at|%event|"
     //% weight=98
-    //% group="Line Follower"
+    //% group="Line Sensor"
     export function wasLinePositionTriggered(event: LinerEvent): boolean {
+        basic.pause(1) //give event a chance to trigger
         let eventValue = event;
         if (!initLiner) onLinePosition(event, () => { });
         if (lastLiner == eventValue) return true;
         return false;
+    }
+
+    /**
+     * If line sensor is lost
+     */
+ 
+    //% weight=99
+    //% group="Line Sensor"
+    export function wasAllLinePosTriggered(): boolean {
+        basic.pause(1) //give event a chance to trigger
+        driver.i2cSendByte(SensorType.Liner, 0x02); //manually do lost trigger
+        let e = driver.i2cReceiveByte(SensorType.Liner);
+        //basic.showNumber(e)
+        if (e == 2) return true;
+        return false
     }
 
     /**
@@ -260,39 +281,64 @@ namespace BitKit {
     }
 
     /**
-     * See if colour sensor detected a specific custom colour
-     *
+     * See if the colour sensor detected a colour
      */
     //%blockId=i2c block="see colour |%checkCol|"
     //% group="Colour Sensor"
     export function seeCustom(checkCol: CustomColours): boolean {
         //separate colour channels
         let col = getColor()
-        let red = col >>> 16
-        let green = (col & 0xFF00) >>> 8
-        let blue = col & 0xFF
+        let r = col >>> 16
+        let g = (col & 0xFF00) >>> 8
+        let b = col & 0xFF
 
-        switch (checkCol) {
-            case CustomColours.W:
-                if (col > 16759431) { //almost white (FFBA87), might need to lower Rval
-                    return true;
-                }
-                break;
-            case CustomColours.R:
-                if (red > 0xE0 && green < 0xE0 && blue < 0xE0 && red > green + 0x30) { //gets red dots, excludes dirt background
-                    return true;
-                }
-                break;
-            case CustomColours.G:
-                if (red < 0x90 && green > 0xA0 && green > red + 0x30) { //and green greener than red
-                    return true;
-                }
-                break;
-            case CustomColours.B:
-                if (red < 0x80 && green < 0x80 && blue > 0x80) {
-                    return true;
-                }
-                break;
+        basic.pause(1)
+        //adapted from https://gist.github.com/vahidk/05184faf3d92a0aa1b46aeaa93b07786
+        r /= 255; g /= 255; b /= 255;
+        let max = Math.max(Math.max(r, g), b);
+        let min = Math.min(Math.min(r, g), b);
+        let d = max - min;
+        let h;
+        if (d === 0) h = 0;
+        else if (max === r) h = (g - b) / d % 6;
+        else if (max === g) h = (b - r) / d + 2;
+        else if (max === b) h = (r - g) / d + 4;
+        let l = (min + max) / 2;
+        let s = d === 0 ? 0 : d / (1 - Math.abs(2 * l - 1));
+        h *= 60
+        if (h < 0) h += 360 //fix wrap around
+
+        if (s > 0.7 && l > 0.2 && l < 0.95) { //don't bother if it's too grey or black
+            switch (checkCol) {
+                case CustomColours.R:
+                    if (h > 350 || h < 17 && l < 0.85) {
+                        return true;
+                    }
+                    return false;
+                case CustomColours.G:
+                    if (h > 80 && h < 160) {
+                        return true;
+                    }
+                    return false;
+                case CustomColours.B:
+                    if (h > 160 && h < 265 && l < 0.85) { //blue bluer than red, green fires high
+                        return true;
+                    }
+                    return false;
+                case CustomColours.P:
+                    if (h > 265 && h < 350 && l < 0.85) { // both red and blue more than green by a bit
+                        return true;
+                    }
+                    return false;
+            }
+        }
+        //separate bit for white
+        if (checkCol == CustomColours.W && col > 16759431) { //almost white (FFBA87), might need to lower Rval
+            return true;
+        }
+        //separate bit for black    
+        if (checkCol == CustomColours.Bl && r * 255 < 0x10 && g * 255 < 0x10 && b * 255 < 0x10) {//all low light
+            return true;
         }
         return false;
     }

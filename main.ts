@@ -1,35 +1,8 @@
-/**
- * Calibration blocks
- */
-//% weight=48 color=#FF4EC7 icon="\uf0ad" block="Calibrate"
-//% groups="['Calibration', 'Setup']"
-namespace calibrate {
-    /**
-     * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
-     * no input
-     */
-    //% weight=96
-    //% block="forward calibrate"
-    //% group="Calibration"
-    export function forwards() {
-        BitKit.setMotormoduleSpeed(255, 255);
-        basic.pause(7000); //7 seconds
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
-
-    /**
-    * Rotate the micro:car for 5 seconds then measure how far it got
-    * no input
-    */
-    //% weight=96
-    //% block="rotation calibrate"
-    //% group="Calibration"
-    export function rotates() {
-        BitKit.setMotormoduleSpeed(-255, 255);
-        basic.pause(10000); //10 seconds
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
-}
+enum LeftorRight {
+    straight = 3,
+    left = 1,
+    right = 2,
+};
 
 /**
  * Grid Blocks
@@ -37,76 +10,78 @@ namespace calibrate {
 //% weight=48 color=#FF6523 icon="\uf009" block="Grid"
 //% groups="['Setup', 'Grid']"
 namespace grid {
-    let rcal = 1;
-    let fcal = 1;
-    let flcal = 0; //forward left calibrate
-    let frcal = 0; //forward right calibrate
-    let strip: neopixel.Strip = null //make strip
+    let strip: newopixel.Strip = null //make strip
 
     /**
-    * Move the micro:car forwards for 5 seconds then measure and see how straight it goes
-    * no input
+    * Turn Right/Left until line
     */
     //% weight=96
-    //% block="forward one space"
+    //% block="go |%direction|"
     //% group="Grid"
-    export function forward() {
-        BitKit.setMotormoduleSpeed(255 - flcal, 255 - frcal);
-        basic.pause(2250)
-        //basic.pause(2250 + 2 * x ^ 2 + bonus); //needs to be different for each robot. Currently setup for Lewis
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
+    export function turnUntilLine(direction: LeftorRight) {
+        let rw, lw, rw2, lw2 = 0;
+        if (direction == 2){ //right
+            lw = 200;
+            rw = 60; //shrunk cos most robots are worse at turning right
+            lw2 = 200;
+            rw2 = 0;
+        }
+        else if (direction == 1){ //left
+            lw = 65;
+            rw = 200;
+            lw2 = 0;
+            rw2 = 200;
+        }
+        
+        if (direction !=3){ //if turning
+            
+            BitKit.setMotormoduleSpeed(lw, rw); //move blindly
+            basic.pause(500);
+            driver.i2cSendByte(SensorType.Liner, 0x02);
+            let event = driver.i2cReceiveByte(SensorType.Liner); //move until you hit the DAL.DEVICE_PIN_DEFAULT_SERVO_CENTER sensor on line
+            while (event != LinerEvent.Middle) {
+                driver.i2cSendByte(SensorType.Liner, 0x02);
+                event = driver.i2cReceiveByte(SensorType.Liner);
+            }
 
+        }
+        else { //if straight
+            BitKit.setMotormoduleSpeed(200,200); //move blindly forwards for a bit
+            basic.pause(900); //upped from 800 to suit gina
+        }
+        BitKit.setMotormoduleSpeed(0, 0);
+        basic.pause(600)
+    }
     /**
-    * Turn Left
-    * no input
+    * Follow line
     */
-    //% weight=96
-    //% block="turn left"
+    //% weight=95
+    //% block="follow line until dot"
     //% group="Grid"
-    export function turnleft() {
-        BitKit.setMotormoduleSpeed(-255, 255);
-        //basic.pause(867 + 9 * x + bonus);
-        basic.pause(rcal)
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
-
-    /**
-    * Turn Right
-    * no input
-    */
-    //% weight=96
-    //% block="turn right"
-    //% group="Grid"
-    export function turnright() {
-        BitKit.setMotormoduleSpeed(255, -255);
-        basic.pause(rcal - fcal * 5) //right different to left due to wonky wheels
-        BitKit.setMotormoduleSpeed(0, 0);
-    }
-
-    /**
-    * Calibration setup
-    * two inputs
-    */
-    //% weight=96
-    //% block="setup f:|%fcal r:|%rcal"
-    //% group="Setup"
-    export function setup(forwardinput: number, rotationinput: number) {
-        strip = neopixel.create(DigitalPin.P1, 4, NeoPixelMode.RGB)
-
-        rcal = 1000 * 90 / rotationinput; //time needed to turn left in ms
-
-        if (forwardinput > 0) {
-            flcal = forwardinput;
+    export function line_follow () {
+        //blindly forward a bit to start
+        BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
+        //basic.pause(700) //blindy go forward to get past dot
+        while (!(BitKit.wasAllLinePosTriggered())) {
+            if (BitKit.wasLinePositionTriggered(LinerEvent.Middle)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Forward, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Left)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Left, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Right)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Right, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Rightmost)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Right, SpeedTpye.Medium)
+            } else if (BitKit.wasLinePositionTriggered(LinerEvent.Leftmost)) {
+                BitKit.setMotormoduleAction(DirectionTpye.Left, SpeedTpye.Medium)
+            }
         }
-        else if (forwardinput < 0) {
-            frcal = -forwardinput;
-        }
-        else {
-            //error please enter number
-        }
-        fcal = forwardinput
-        //x = Math.abs(flcal + frcal)
+        BitKit.stopMotormodule()
+        basic.pause(500)
     }
 }
 
+namespace ws2812b_cp {
+    //% shim=sendBufferAsm
+    export function sendBuffer(buf: Buffer, pin: DigitalPin) {
+    }
+}
