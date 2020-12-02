@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "description": "An ACA extension for the Resources Challenge: Automation",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "microphone": "*"
     },
     "files": [
         "README.md",
